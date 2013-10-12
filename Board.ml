@@ -1,9 +1,10 @@
 open Types
+open Util
 
 class gameBoard size =
-  let initial_array = (Array.make (size * size) Empty) in
+  let initial_list = (fillN (size * size) Empty) in
 
   object (self)
-    val squares =  ( initial_array : square array)
+    val squares = (initial_list : square list)
     method getSquares = squares
   end;;

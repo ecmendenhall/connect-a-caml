@@ -1,0 +1,4 @@
+FILE="$1.native"
+TEST_FILE="$1Test.native"
+RUN_COMMAND="./$1Test.native"
+ocamlbuild $FILE $TEST_FILE -pkg oUnit -use-ocamlfind && $RUN_COMMAND

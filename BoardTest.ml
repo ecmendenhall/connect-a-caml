@@ -5,15 +5,15 @@ open Board
 let tests = "Board" >:::
   [
     "A gameBoard of size n holds an array of n * n squares" >:: ( fun () ->
-      assert_equal [| Empty; Empty; Empty;
-                      Empty; Empty; Empty;
-                      Empty; Empty; Empty |]
+      assert_equal [ Empty; Empty; Empty;
+                     Empty; Empty; Empty;
+                     Empty; Empty; Empty ]
                    (new gameBoard 3)#getSquares;
 
-      assert_equal [| Empty; Empty; Empty; Empty;
-                      Empty; Empty; Empty; Empty;
-                      Empty; Empty; Empty; Empty;
-                      Empty; Empty; Empty; Empty; |]
+      assert_equal [ Empty; Empty; Empty; Empty;
+                     Empty; Empty; Empty; Empty;
+                     Empty; Empty; Empty; Empty;
+                     Empty; Empty; Empty; Empty; ]
                    (new gameBoard 4)#getSquares
     );
 
