@@ -7,7 +7,7 @@ let isValidGamePiece value = match value with
 
 let isValidSquareState value = match value with
   | Empty -> true
-  | Full -> true
+  | Full _ -> true
 
 let tests = "Types" >:::
   [
@@ -23,8 +23,9 @@ let tests = "Types" >:::
       assert (isValidSquareState Empty);
     );
 
-    "a square can be Full" >:: ( fun () ->
-      assert (isValidSquareState Full);
+    "a square can be Full of a game piece" >:: ( fun () ->
+      assert (isValidSquareState (Full X));
+      assert (isValidSquareState (Full O));
     );
   ]
 
