@@ -1,0 +1,1 @@
+type gamePiece = X | O
