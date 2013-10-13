@@ -24,6 +24,36 @@ let tests = "Board" >:::
                       Empty;  Empty; Empty; |]
                    (board#fillSquare 3 X)#getSquares;
     );
+
+    "Many squares can be filled with gamePieces" >:: ( fun () ->
+      let board =
+        (((new gameBoard 3)#fillSquare 0 O)#fillSquare 3 X)#fillSquare 8 X  in
+      assert_equal [| Full O; Empty; Empty;
+                      Full X; Empty; Empty;
+                      Empty;  Empty; Full X; |]
+                   board#getSquares
+    );
+
+    "A board's squares can be set" >:: ( fun () ->
+      let squares =
+          [| Full X; Empty;  Empty;
+             Empty;  Full X; Empty;
+             Empty;  Empty;  Full X |] in
+        let board = (new gameBoard 3)#setSquares squares in
+          assert_equal squares board#getSquares
+    );
+
+    "A board returns its rows" >:: ( fun () ->
+      let board = (new gameBoard 3)#setSquares
+                  [| Full X; Full O; Empty;
+                     Full X; Full O; Empty;
+                     Full O; Empty;  Full X |] in
+      assert_equal [[ Full X;  Full O; Empty  ];
+                    [ Full X;  Full O; Empty  ];
+                    [ Full O;  Empty;  Full X ]]
+                   board#getRows
+
+    );
   ]
 
 (* Test Runner *)
