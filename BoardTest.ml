@@ -75,6 +75,16 @@ let tests = "Board" >:::
                     [Empty;  Full O; Full O  ]]
                    board#getDiagonals
     );
+
+    "A board returns the values of its squares" >:: (fun () ->
+      let board = (new gameBoard 3)#setSquares
+                  [[Full X; Full O; Empty];
+                   [Full X; Full O; Empty];
+                   [Full O; Empty;  Full X]] in
+      assert_equal (Full X)
+                   (board#getSquare 1 0)
+    );
+
   ]
 
 (* Test Runner *)

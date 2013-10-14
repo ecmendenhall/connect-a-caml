@@ -7,6 +7,7 @@ class gameBoard size =
   object (self)
     val squares = (initial_array : square list list)
     method setSquares newSquares = {< squares = newSquares >}
+    method getSquare row col = valueAt row col squares
     method fillSquare row col piece =
       {< squares = setValue row col (Full piece) squares >}
     method getRows = squares
