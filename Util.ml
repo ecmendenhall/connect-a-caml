@@ -3,9 +3,9 @@ let replaceNth items index value =
   items
 
 let rec splitBeforeIter n acc items = match n, items with
-  | _, [] -> acc, items
-  | 0, _  -> acc, items
-  | _, _  -> splitBeforeIter (n - 1) (acc @ [List.hd items]) (List.tl items)
+  | _, []     -> acc, items
+  | 0, _      -> acc, items
+  | _, x::xs  -> splitBeforeIter (n - 1) (acc @ [x]) xs
 
 let splitBefore n items = splitBeforeIter n [] items
 
