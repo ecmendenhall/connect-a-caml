@@ -10,6 +10,10 @@ let isValidSquareState value = match value with
   | Empty -> true
   | Full _ -> true
 
+let isValidGameState value = match value with
+  | Win _   -> true
+  | Pending -> true
+
 let tests = "Types" >:::
   [
     "X is a type of game piece" >:: ( fun () ->
@@ -33,7 +37,6 @@ let tests = "Types" >:::
       assert (isValidSquareState (Full X));
       assert (isValidSquareState (Full O));
     );
-
   ]
 
 (* Test Runner *)
