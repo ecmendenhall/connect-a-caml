@@ -9,10 +9,6 @@ let isValidSquareState value = match value with
   | Empty -> true
   | Full _ -> true
 
-let isValidPlayerType value = match value with
-  | Human -> true
-  | Computer -> true
-
 let tests = "Types" >:::
   [
     "X is a type of game piece" >:: ( fun () ->
@@ -32,10 +28,11 @@ let tests = "Types" >:::
       assert (isValidSquareState (Full O));
     );
 
-    "a player can be Human or Computer" >:: ( fun () ->
-      assert (isValidPlayerType Human);
-      assert (isValidPlayerType Computer)
+    "a square can be Full of a game piece" >:: ( fun () ->
+      assert (isValidSquareState (Full X));
+      assert (isValidSquareState (Full O));
     );
+
   ]
 
 (* Test Runner *)
