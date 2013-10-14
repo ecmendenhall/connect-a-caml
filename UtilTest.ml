@@ -7,6 +7,27 @@ include Util
 let tests = "Util" >:::
   [
 
+    "splitting a list into two lists" >:: ( fun () ->
+      assert_equal ([ "tro"; "lo"; "lo" ], [ "lo"; "lo"])
+                   (splitBefore 3 [ "tro"; "lo"; "lo"; "lo"; "lo" ]);
+    );
+
+    "taking the first n items from a list" >:: ( fun () ->
+      assert_equal [ "tro"; "lo"; "lo" ]
+                   (take 3 [ "tro"; "lo"; "lo"; "lo"; "lo" ]);
+    );
+
+    "dropping the first n items from a list" >:: ( fun () ->
+      assert_equal [ "lo"; "lo" ]
+                   (drop 3 [ "tro"; "lo"; "lo"; "lo"; "lo" ]);
+    );
+
+    "partitioning a list into groups of n items" >:: (fun () ->
+      assert_equal [["wha"; "pa"; "pa"];
+                    ["pa";  "pa"; "pa"];
+                    ["pow!"]]
+                   (partitionBy 3 [ "wha"; "pa"; "pa"; "pa"; "pa"; "pa"; "pow!" ])
+    );
     "creating a list of size n filled with a default value" >:: (fun () ->
       assert_equal [Empty; Empty; Empty; Empty]
                    (makeList 4 Empty)
