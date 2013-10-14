@@ -18,3 +18,9 @@ let rec partitionByIter n acc items = match items with
   | _  -> partitionByIter n ((take n items) :: acc) (drop n items)
 
 let partitionBy n items = partitionByIter n [] items
+
+let rec transpose items = match items with
+  | [] -> []
+  | [] :: xs  -> transpose xs
+  | (x :: xs) :: xss ->
+      (x :: List.map List.hd xss) :: transpose (xs :: List.map List.tl xss)

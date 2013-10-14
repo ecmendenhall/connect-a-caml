@@ -54,6 +54,17 @@ let tests = "Board" >:::
                    board#getRows
 
     );
+
+    "A board returns its columns" >:: ( fun () ->
+      let board = (new gameBoard 3)#setSquares
+                  [| Full X; Full O; Empty;
+                     Full X; Full O; Empty;
+                     Full O; Empty;  Full X |] in
+      assert_equal [[ Full X;  Full X; Full O  ];
+                    [ Full O;  Full O; Empty  ];
+                    [ Empty;  Empty;  Full X ]]
+                   board#getColumns
+    );
   ]
 
 (* Test Runner *)

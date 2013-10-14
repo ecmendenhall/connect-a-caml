@@ -10,4 +10,5 @@ class gameBoard size =
     method setSquares newSquares = {< squares = newSquares >}
     method fillSquare n piece = {< squares = replaceNth squares n (Full piece) >}
     method getRows = partitionBy 3 (Array.to_list squares)
+    method getColumns = transpose self#getRows
   end;;

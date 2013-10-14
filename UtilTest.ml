@@ -29,6 +29,15 @@ let tests = "Util" >:::
                     ["pow!"]]
                    (partitionBy 3 [ "wha"; "pa"; "pa"; "pa"; "pa"; "pa"; "pow!" ])
     );
+
+    "transposing a list of lists" >:: (fun () ->
+      assert_equal [[1; 1; 1];
+                    [0; 1; 1];
+                    [0; 0; 1]]
+                   (transpose [[1; 0; 0];
+                               [1; 1; 0];
+                               [1; 1; 1]])
+    );
   ]
 
 (* Test Runner *)
