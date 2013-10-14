@@ -1,5 +1,6 @@
 open OUnit
 open Types
+include Types
 
 let isValidGamePiece value = match value with
   | X -> true

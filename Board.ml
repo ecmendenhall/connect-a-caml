@@ -1,16 +1,21 @@
 open Types
-open Util
+include Types
+open Matrix
 
-class gameBoard size =
-  let initial_array = (squareMatrix size Empty) in
+module Board =
+  struct
+    let emptyBoard size =
+      Matrix.squareMatrix size Empty
 
-  object (self)
-    val squares = (initial_array : square list list)
-    method setSquares newSquares = {< squares = newSquares >}
-    method getSquare row col = valueAt row col squares
-    method fillSquare row col piece =
-      {< squares = setValue row col (Full piece) squares >}
-    method getRows = squares
-    method getColumns = transpose squares
-    method getDiagonals = [diagonal squares; antidiagonal squares]
+    let getSquare row col board =
+      Matrix.valueAt row col board
+
+    let fillSquare row col piece board =
+      Matrix.setValue row col (Full piece) board
+
+    let getColumns board =
+      Matrix.transpose board
+
+    let getDiagonals board =
+      [Matrix.diagonal board; Matrix.antidiagonal board]
   end;;

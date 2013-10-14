@@ -1,6 +1,8 @@
 open OUnit
-open Engine
 open Types
+include Types
+open Engine
+include Engine
 
 let tests = "Engine" >:::
   [

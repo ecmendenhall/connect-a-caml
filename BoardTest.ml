@@ -1,6 +1,6 @@
 open OUnit
-open Types
 open Board
+open Types
 
 let tests = "Board" >:::
   [
@@ -8,81 +8,60 @@ let tests = "Board" >:::
       assert_equal [[Empty; Empty; Empty];
                     [Empty; Empty; Empty];
                     [Empty; Empty; Empty]]
-                   (new gameBoard 3)#getRows;
+                   (Board.emptyBoard 3);
 
       assert_equal [[Empty; Empty; Empty; Empty];
                     [Empty; Empty; Empty; Empty];
                     [Empty; Empty; Empty; Empty];
                     [Empty; Empty; Empty; Empty]]
-                   (new gameBoard 4)#getRows
+                   (Board.emptyBoard 4)
     );
 
     "A square can be filled with a gamePiece" >:: ( fun () ->
-      let board = (new gameBoard 3) in
+      let board = (Board.emptyBoard 3) in
       assert_equal [[Empty;  Empty; Empty];
                     [Full X; Empty; Empty];
                     [Empty;  Empty; Empty]]
-                   (board#fillSquare 1 0 X)#getRows;
+                   (Board.fillSquare 1 0 X board);
     );
 
     "Many squares can be filled with gamePieces" >:: ( fun () ->
       let board =
-        (((new gameBoard 3)#fillSquare 0 0 O)#fillSquare 1 0 X)#fillSquare 2 2 X  in
+        Board.fillSquare 2 2 X
+        (Board.fillSquare 1 0 X
+         (Board.fillSquare 0 0 O
+          (Board.emptyBoard 3))) in
       assert_equal [[Full O; Empty; Empty];
                     [Full X; Empty; Empty];
                     [Empty;  Empty; Full X]]
-                   board#getRows
-    );
-
-    "A board's squares can be set" >:: ( fun () ->
-      let squares =
-        [[Full X; Empty;  Empty];
-         [Empty;  Full X; Empty];
-         [Empty;  Empty;  Full X]] in
-        let board = (new gameBoard 3)#setSquares squares in
-          assert_equal squares board#getRows
-    );
-
-    "A board returns its rows" >:: ( fun () ->
-      let board = (new gameBoard 3)#setSquares
-                  [[Full X; Full O; Empty];
-                   [Full X; Full O; Empty];
-                   [Full O; Empty;  Full X]] in
-      assert_equal [[Full X; Full O; Empty  ];
-                    [Full X; Full O; Empty  ];
-                    [Full O; Empty;  Full X ]]
-                   board#getRows
-
+                   board
     );
 
     "A board returns its columns" >:: ( fun () ->
-      let board = (new gameBoard 3)#setSquares
-                  [[Full X; Full O; Empty];
+      let board = [[Full X; Full O; Empty];
                    [Full X; Full O; Empty];
                    [Full O; Empty;  Full X]] in
       assert_equal [[Full X; Full X; Full O ];
                     [Full O; Full O; Empty  ];
                     [Empty;  Empty;  Full X ]]
-                   board#getColumns
+                   (Board.getColumns board)
     );
 
     "A board returns its diagonals" >:: ( fun () ->
-      let board = (new gameBoard 3)#setSquares
-                  [[Full X; Full O; Empty];
+      let board = [[Full X; Full O; Empty];
                    [Full X; Full O; Empty];
                    [Full O; Empty;  Full X]] in
       assert_equal [[Full X; Full O; Full X ];
                     [Empty;  Full O; Full O  ]]
-                   board#getDiagonals
+                   (Board.getDiagonals board)
     );
 
     "A board returns the values of its squares" >:: (fun () ->
-      let board = (new gameBoard 3)#setSquares
-                  [[Full X; Full O; Empty];
+      let board = [[Full X; Full O; Empty];
                    [Full X; Full O; Empty];
                    [Full O; Empty;  Full X]] in
       assert_equal (Full X)
-                   (board#getSquare 1 0)
+                   (Board.getSquare 1 0 board)
     );
 
   ]
