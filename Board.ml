@@ -5,39 +5,39 @@ open Util
 
 module Board =
   struct
-    let emptyBoard size =
-      Matrix.squareMatrix size Empty
+    let empty_board size =
+      Matrix.square_matrix size Empty
 
-    let getSquare row col board =
-      Matrix.valueAt row col board
+    let get_square row col board =
+      Matrix.value_at row col board
 
-    let fillSquare row col piece board =
-      Matrix.setValue row col (Full piece) board
+    let fill_square row col piece board =
+      Matrix.set_value row col (Full piece) board
 
-    let getColumns board =
+    let get_columns board =
       Matrix.transpose board
 
-    let getDiagonals board =
+    let get_diagonals board =
       [Matrix.diagonal board; Matrix.antidiagonal board]
 
     let map fn board =
       let board_size = List.length board in
-        (Util.partitionBy board_size (List.map fn (List.flatten board)))
+        Util.partition_by board_size (List.map fn (List.flatten board))
 
     let mapi fn board =
       let board_size = List.length board in
-        (Util.partitionBy board_size (List.mapi fn (List.flatten board)))
+        Util.partition_by board_size (List.mapi fn (List.flatten board))
 
-    let indexToRow index board_size =
+    let index_to_row index board_size =
       (index / board_size)
 
-    let indexToCol index board_size =
+    let index_to_col index board_size =
       (index mod board_size)
 
-    let indexToRowCol index board_size =
-      (indexToRow index board_size), (indexToCol index board_size)
+    let index_to_row_col index board_size =
+      (index_to_row index board_size, index_to_col index board_size)
 
-    let mapRowColumn fn board =
+    let map_row_column fn board =
       let board_size = List.length board in
-        mapi (fun i sq -> (fn (indexToRow i board_size) (indexToCol i board_size) sq)) board
+        mapi (fun i sq -> (fn (index_to_row i board_size) (index_to_col i board_size) sq)) board
   end;;

@@ -5,40 +5,40 @@ open Board
 module Engine =
   struct
 
-    let rowHasWin row = match row with
+    let row_has_win row = match row with
       | []          -> false
       | Empty :: xs -> false
       | x :: xs     ->
         List.fold_left (&&) true (List.map (fun i -> i = x) xs)
 
-    let rowState row =
-      if (rowHasWin row) then match List.hd row with
+    let row_state row =
+      if (row_has_win row) then match List.hd row with
         | Empty  -> Pending
         | Full O -> Win O
         | Full X -> Win X
       else
         Pending
 
-    let boardIsDraw board =
+    let board_is_draw board =
       List.fold_left (&&) true (List.flatten (Board.map (fun sq -> match sq with
                                                            | Full _ -> true
-                                                           | _ -> false)
+                                                           | _      -> false)
                                              board))
 
-    let getState states =
-      let wins = (List.filter (fun state -> state <> Pending) states) in
+    let get_state states =
+      let wins = List.filter (fun state -> state <> Pending) states in
         match wins with
           | [] -> Pending
           | _  -> List.hd wins
 
-    let rowStates board =
-      List.map rowState (board @
-                         Board.getColumns board @
-                         Board.getDiagonals board)
+    let row_states board =
+      List.map row_state (board @
+                          Board.get_columns board @
+                          Board.get_diagonals board)
 
-   let boardState board =
-     if boardIsDraw board then
+   let board_state board =
+     if board_is_draw board then
        Draw
       else
-        getState (rowStates board)
+        get_state (row_states board)
   end;;

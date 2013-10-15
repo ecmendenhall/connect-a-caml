@@ -5,36 +5,40 @@ open Engine
 
 module Minimax =
   struct
-    let nextMoves turn board =
+
+    let fill_or_pass turn board row column square =
+      if square = Empty then
+        Board.fill_square row column turn board
+      else
+        board
+
+    let next_moves turn board =
       List.filter (fun b -> b <> board)
                   (List.flatten
-                    (Board.mapRowColumn (fun r c sq ->
-                                          if sq = Empty then
-                                            Board.fillSquare r c turn board
-                                          else board)
-                                        board))
+                    (Board.map_row_column (fill_or_pass turn board)
+                                          board))
 
-   let leafScore turn board =
-     let x_score = (if turn = X then 1 else -1) in
-       match Engine.boardState board with
-         | Win X   ->  x_score
-         | Win O   -> -x_score
+   let leaf_score turn board =
+     let score = (if turn = X then 1 else -1) in
+       match Engine.board_state board with
+         | Win X   ->  score
+         | Win O   -> -score
          | _       -> 0
 
-   let otherTurn turn = match turn with
+   let other_turn turn = match turn with
      | X -> O
      | O -> X
 
-   let isTerminal board = Engine.boardState board <> Pending
+   let is_terminal board = Engine.board_state board <> Pending
 
-   let rec miniMax depth turn board =
-     if (depth = 0) || (isTerminal board) then
-       leafScore turn board
+   let rec minimax depth turn board =
+     if depth = 0 || is_terminal board then
+       leaf_score turn board
      else
-       let next = nextMoves turn board in
-       if (turn = X) then
-         List.fold_left max min_int (List.map (miniMax (depth - 1) (otherTurn turn)) next)
+       let next = next_moves turn board in
+       if turn = X then
+         List.fold_left max min_int (List.map (minimax (depth - 1) (other_turn turn)) next)
        else
-         List.fold_left min max_int (List.map (miniMax (depth - 1) (otherTurn turn)) next)
+         List.fold_left min max_int (List.map (minimax (depth - 1) (other_turn turn)) next)
 
   end;;

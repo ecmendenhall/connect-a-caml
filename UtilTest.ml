@@ -9,7 +9,7 @@ let tests = "Util" >:::
 
     "splitting a list into two lists" >:: ( fun () ->
       assert_equal ([ "tro"; "lo"; "lo" ], [ "lo"; "lo"])
-                   (splitBefore 3 [ "tro"; "lo"; "lo"; "lo"; "lo" ]);
+                   (split_before 3 [ "tro"; "lo"; "lo"; "lo"; "lo" ]);
     );
 
     "taking the first n items from a list" >:: ( fun () ->
@@ -26,17 +26,17 @@ let tests = "Util" >:::
       assert_equal [["wha"; "pa"; "pa"];
                     ["pa";  "pa"; "pa"];
                     ["pow!"]]
-                   (partitionBy 3 [ "wha"; "pa"; "pa"; "pa"; "pa"; "pa"; "pow!" ])
+                   (partition_by 3 [ "wha"; "pa"; "pa"; "pa"; "pa"; "pa"; "pow!" ])
     );
     "creating a list of size n filled with a default value" >:: (fun () ->
       assert_equal [Empty; Empty; Empty; Empty]
-                   (makeList 4 Empty)
+                   (make_list 4 Empty)
     );
 
 
     "'setting' the value of the i-th element in a list" >:: (fun () ->
       assert_equal [1; 2; 3; 100]
-                   (setNth 3 100 [1; 2; 3; 4])
+                   (set_nth 3 100 [1; 2; 3; 4])
     );
   ]
 

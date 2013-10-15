@@ -28,104 +28,104 @@ let tests = "Minimax" >:::
          [Full X; Full O; Empty];
          [Full O; Empty;  Full X]];
       ]
-      (nextMoves X [[Full X; Empty;  Empty];
+      (next_moves X [[Full X; Empty;  Empty];
                     [Full X; Full O; Empty];
                     [Full O; Empty;  Empty]])
     );
 
     "scores terminal board states" >:: ( fun () ->
       assert_equal (-1)
-      (leafScore X [[Full X; Full O;  Empty];
+      (leaf_score X [[Full X; Full O;  Empty];
                     [Full X; Full O;  Empty];
                     [Empty;  Full O; Full X]]);
       assert_equal 1
-      (leafScore X [[Full X; Full O; Empty];
+      (leaf_score X [[Full X; Full O; Empty];
                     [Full X; Full O; Empty];
                     [Full X; Empty;  Empty]]);
       assert_equal 0
-      (leafScore X [[Full X; Full O; Empty];
+      (leaf_score X [[Full X; Full O; Empty];
                     [Full X; Empty;  Empty];
                     [Empty;  Empty;  Empty]])
     );
 
-    "leafScores next moves" >:: ( fun () ->
+    "leaf_scores next moves" >:: ( fun () ->
       assert_equal (-1)
-      (leafScore X [[Full X; Full O;  Empty];
+      (leaf_score X [[Full X; Full O;  Empty];
                     [Full X; Full O;  Empty];
                     [Empty;  Full O; Full X]]);
       assert_equal 1
-      (leafScore X [[Full X; Full O; Empty];
+      (leaf_score X [[Full X; Full O; Empty];
                     [Full X; Full O; Empty];
                     [Full X; Empty;  Empty]]);
       assert_equal 0
-      (leafScore X [[Full X; Full O; Empty];
+      (leaf_score X [[Full X; Full O; Empty];
                     [Full X; Empty;  Empty];
                     [Empty;  Empty;  Empty]])
     );
 
-    "leafScores next moves" >:: ( fun () ->
+    "leaf_scores next moves" >:: ( fun () ->
       assert_equal (-1)
-      (leafScore X [[Full X; Full O;  Empty];
+      (leaf_score X [[Full X; Full O;  Empty];
                     [Full X; Full O;  Empty];
                     [Empty;  Full O; Full X]]);
       assert_equal 1
-      (leafScore O [[Full X; Full O;  Empty];
+      (leaf_score O [[Full X; Full O;  Empty];
                     [Full X; Full O;  Empty];
                     [Empty;  Full O; Full X]]);
       assert_equal 1
-      (leafScore X [[Full X; Full O; Empty];
+      (leaf_score X [[Full X; Full O; Empty];
                     [Full X; Full O; Empty];
                     [Full X; Empty;  Empty]]);
       assert_equal (-1)
-      (leafScore O [[Full X; Full O; Empty];
+      (leaf_score O [[Full X; Full O; Empty];
                     [Full X; Full O; Empty];
                     [Full X; Empty;  Empty]]);
       assert_equal 0
-      (leafScore X [[Full X; Full O; Empty];
+      (leaf_score X [[Full X; Full O; Empty];
                     [Full X; Empty;  Empty];
                     [Empty;  Empty;  Empty]])
     );
 
     "calcluates other turn" >:: ( fun () ->
-      assert_equal O (otherTurn X);
-      assert_equal X (otherTurn O)
+      assert_equal O (other_turn X);
+      assert_equal X (other_turn O)
     );
 
     "calcluates whether a board is a terminal node" >:: ( fun () ->
       assert_equal true
-                   (isTerminal [[Full X; Full X; Full X];
+                   (is_terminal [[Full X; Full X; Full X];
                                 [Empty;  Empty;  Empty ];
                                 [Empty;  Empty;  Empty ]]);
       assert_equal false
-                   (isTerminal [[Full X; Empty; Full O];
+                   (is_terminal [[Full X; Empty; Full O];
                                 [Empty;  Empty; Empty ];
                                 [Empty;  Empty; Empty ]]);
     );
 
     "assigns winning moves a score of 1" >:: ( fun () ->
       assert_equal 1
-                   (miniMax 1 X [[Full X; Full X; Full X];
+                   (minimax 1 X [[Full X; Full X; Full X];
                                  [Empty;  Empty;  Empty ];
                                  [Empty;  Empty;  Empty ]]);
     );
 
     "assigns losing moves a score of -1" >:: ( fun () ->
       assert_equal (-1)
-                   (miniMax 1 X [[Full O; Full O; Full O];
+                   (minimax 1 X [[Full O; Full O; Full O];
                                  [Empty;  Empty;  Empty ];
                                  [Empty;  Empty;  Empty ]]);
     );
 
     "assigns indeterminate moves a score of 0 at lookahead depth" >:: ( fun () ->
       assert_equal 0
-                   (miniMax 1 X [[Full X; Empty;  Empty ];
+                   (minimax 1 X [[Full X; Empty;  Empty ];
                                  [Empty;  Empty;  Empty ];
                                  [Empty;  Full O; Empty ]]);
     );
 
     "scores wins above blocks" >:: ( fun () ->
       assert_equal [1; 0]
-                   (List.map (fun b -> miniMax 2 X b)
+                   (List.map (fun b -> minimax 2 X b)
                              [[[Full O; Full O; Empty];
                                [Empty;  Empty;  Empty];
                                [Full X; Full X; Full X]];
@@ -137,7 +137,7 @@ let tests = "Minimax" >:::
 
     "scores blocks above losing moves" >:: ( fun () ->
       assert_equal [0; -1]
-                   (List.map (fun b -> miniMax 2 X b)
+                   (List.map (fun b -> minimax 2 X b)
                              [[[Full O; Full O; Full X];
                                [Full X; Empty;  Empty ];
                                [Full X; Empty;  Empty ]];
@@ -146,7 +146,6 @@ let tests = "Minimax" >:::
                                [Full X; Empty;  Empty]]])
 
     );
-
   ]
 
 (* Test Runner *)

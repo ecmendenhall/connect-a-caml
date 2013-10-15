@@ -19,14 +19,14 @@ let tests = "Util" >:::
       assert_equal [[0; 0; 0];
                     [0; 0; 0];
                     [0; 0; 0] ]
-                   (squareMatrix 3 0)
+                   (square_matrix 3 0)
     );
 
     "creating a matrix filled with a default value" >:: (fun () ->
       assert_equal [[Empty; Empty; Empty];
                     [Empty; Empty; Empty];
                     [Empty; Empty; Empty]]
-                   (squareMatrix 3 Empty)
+                   (square_matrix 3 Empty)
     );
 
     "getting an entry from the i-th row and j-th column of a matrix" >:: (fun () ->
@@ -35,9 +35,9 @@ let tests = "Util" >:::
                     [8; 9; 0; 5];
                     [4; 3; 2; 1]] in
         assert_equal 5
-                     (valueAt 2 3 matrix);
+                     (value_at 2 3 matrix);
         assert_equal 2
-                     (valueAt 0 2 matrix)
+                     (value_at 0 2 matrix)
     );
 
     "getting the i-th row of a matrix" >:: (fun () ->
@@ -89,7 +89,7 @@ let tests = "Util" >:::
                       [4; 5; 6; 100];
                       [8; 9; 0; 5];
                       [4; 3; 2; 1]]
-                     (setValue 1 3 100 matrix)
+                     (set_value 1 3 100 matrix)
     );
   ]
 

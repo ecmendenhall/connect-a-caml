@@ -1,6 +1,6 @@
 module Types =
   struct
-    type gamePiece = X | O
-    type square = Empty | Full of gamePiece
-    type gameState = Win of gamePiece | Draw | Pending
+    type gamepiece = X | O
+    type square = Empty | Full of gamepiece
+    type gamestate = Win of gamepiece | Draw | Pending
   end;;

@@ -8,29 +8,29 @@ let tests = "Board" >:::
       assert_equal [[Empty; Empty; Empty];
                     [Empty; Empty; Empty];
                     [Empty; Empty; Empty]]
-                   (Board.emptyBoard 3);
+                   (Board.empty_board 3);
 
       assert_equal [[Empty; Empty; Empty; Empty];
                     [Empty; Empty; Empty; Empty];
                     [Empty; Empty; Empty; Empty];
                     [Empty; Empty; Empty; Empty]]
-                   (Board.emptyBoard 4)
+                   (Board.empty_board 4)
     );
 
     "A square can be filled with a gamePiece" >:: ( fun () ->
-      let board = (Board.emptyBoard 3) in
+      let board = (Board.empty_board 3) in
       assert_equal [[Empty;  Empty; Empty];
                     [Full X; Empty; Empty];
                     [Empty;  Empty; Empty]]
-                   (Board.fillSquare 1 0 X board);
+                   (Board.fill_square 1 0 X board);
     );
 
     "Many squares can be filled with gamePieces" >:: ( fun () ->
       let board =
-        Board.fillSquare 2 2 X
-        (Board.fillSquare 1 0 X
-         (Board.fillSquare 0 0 O
-          (Board.emptyBoard 3))) in
+        Board.fill_square 2 2 X
+        (Board.fill_square 1 0 X
+         (Board.fill_square 0 0 O
+          (Board.empty_board 3))) in
       assert_equal [[Full O; Empty; Empty];
                     [Full X; Empty; Empty];
                     [Empty;  Empty; Full X]]
@@ -44,16 +44,16 @@ let tests = "Board" >:::
       assert_equal [[Full X; Full X; Full O ];
                     [Full O; Full O; Empty  ];
                     [Empty;  Empty;  Full X ]]
-                   (Board.getColumns board)
+                   (Board.get_columns board)
     );
 
     "A board returns its diagonals" >:: ( fun () ->
       let board = [[Full X; Full O; Empty];
                    [Full X; Full O; Empty];
                    [Full O; Empty;  Full X]] in
-      assert_equal [[Full X; Full O; Full X ];
-                    [Empty;  Full O; Full O  ]]
-                   (Board.getDiagonals board)
+      assert_equal [[Full X; Full O; Full X];
+                    [Empty;  Full O; Full O]]
+                   (Board.get_diagonals board)
     );
 
     "A board returns the values of its squares" >:: (fun () ->
@@ -61,7 +61,7 @@ let tests = "Board" >:::
                    [Full X; Full O; Empty];
                    [Full O; Empty;  Full X]] in
       assert_equal (Full X)
-                   (Board.getSquare 1 0 board)
+                   (Board.get_square 1 0 board)
     );
 
     "map" >:: (fun () ->
@@ -89,20 +89,20 @@ let tests = "Board" >:::
     );
 
     "converting flattened indices to row, column coordinates" >:: (fun () ->
-      assert_equal (0, 0) (Board.indexToRowCol 0 3);
-      assert_equal (0, 1) (Board.indexToRowCol 1 3);
-      assert_equal (0, 2) (Board.indexToRowCol 2 3);
-      assert_equal (1, 0) (Board.indexToRowCol 3 3);
+      assert_equal (0, 0) (Board.index_to_row_col 0 3);
+      assert_equal (0, 1) (Board.index_to_row_col 1 3);
+      assert_equal (0, 2) (Board.index_to_row_col 2 3);
+      assert_equal (1, 0) (Board.index_to_row_col 3 3);
     );
 
-    "mapRowColumn" >:: (fun () ->
+    "map_row_column" >:: (fun () ->
       let board = [[Full X; Full O; Empty];
                    [Full X; Full O; Empty];
                    [Full O; Empty;  Full X]] in
       assert_equal [[0, 0; 0, 1; 0, 2];
                     [1, 0; 1, 1; 1, 2];
                     [2, 0; 2, 1; 2, 2]]
-                   (Board.mapRowColumn (fun r c _ -> (r, c)) board)
+                   (Board.map_row_column (fun r c _ -> (r, c)) board)
     );
   ]
 
