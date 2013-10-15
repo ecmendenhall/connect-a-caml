@@ -64,6 +64,46 @@ let tests = "Board" >:::
                    (Board.getSquare 1 0 board)
     );
 
+    "map" >:: (fun () ->
+      let board = [[Full X; Full O; Empty];
+                   [Full X; Full O; Empty];
+                   [Full O; Empty;  Full X]] in
+      assert_equal [["X"; "O"; "_"];
+                    ["X"; "O"; "_"];
+                    ["O"; "_"; "X"]]
+                   (Board.map (fun sq -> match sq with
+                                         | Full X -> "X"
+                                         | Full O -> "O"
+                                         | _      -> "_")
+                               board)
+    );
+
+    "mapi" >:: (fun () ->
+      let board = [[Full X; Full O; Empty];
+                   [Full X; Full O; Empty];
+                   [Full O; Empty;  Full X]] in
+      assert_equal [[0; 1; 2];
+                    [3; 4; 5];
+                    [6; 7; 8]]
+                   (Board.mapi (fun i _ -> i) board)
+    );
+
+    "converting flattened indices to row, column coordinates" >:: (fun () ->
+      assert_equal (0, 0) (Board.indexToRowCol 0 3);
+      assert_equal (0, 1) (Board.indexToRowCol 1 3);
+      assert_equal (0, 2) (Board.indexToRowCol 2 3);
+      assert_equal (1, 0) (Board.indexToRowCol 3 3);
+    );
+
+    "mapRowColumn" >:: (fun () ->
+      let board = [[Full X; Full O; Empty];
+                   [Full X; Full O; Empty];
+                   [Full O; Empty;  Full X]] in
+      assert_equal [[0, 0; 0, 1; 0, 2];
+                    [1, 0; 1, 1; 1, 2];
+                    [2, 0; 2, 1; 2, 2]]
+                   (Board.mapRowColumn (fun r c _ -> (r, c)) board)
+    );
   ]
 
 (* Test Runner *)
