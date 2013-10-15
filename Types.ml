@@ -2,5 +2,5 @@ module Types =
   struct
     type gamePiece = X | O
     type square = Empty | Full of gamePiece
-    type gameState = Win of gamePiece | Pending
+    type gameState = Win of gamePiece | Draw | Pending
   end;;

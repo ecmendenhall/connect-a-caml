@@ -19,6 +19,15 @@ module Minimax =
        match Engine.boardState board with
          | Win X   ->  x_score
          | Win O   -> -x_score
-         | Pending -> 0
+         | _       -> 0
+
+   let otherTurn turn = match turn with
+     | X -> O
+     | O -> X
+
+   let isTerminal board = match Engine.boardState board with
+     | Win _   -> true
+     | Draw    -> true
+     | Pending -> false
 
   end;;

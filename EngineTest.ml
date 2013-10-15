@@ -61,6 +61,12 @@ let tests = "Engine" >:::
                                [Full O;  Empty;  Empty]])
     );
 
+    "checks a board for simple draws" >:: ( fun () ->
+     assert_equal Draw
+                  (boardState [[Full X; Full O; Full X];
+                               [Full O; Full X; Full X];
+                               [Full O; Full X; Full O]]);
+    );
   ]
 
 (* Test Runner *)

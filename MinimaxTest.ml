@@ -47,6 +47,52 @@ let tests = "Minimax" >:::
                 [Full X; Empty;  Empty];
                 [Empty;  Empty;  Empty]])
     );
+
+    "scores next moves" >:: ( fun () ->
+      assert_equal (-1)
+      (score X [[Full X; Full O;  Empty];
+                [Full X; Full O;  Empty];
+                [Empty;  Full O; Full X]]);
+      assert_equal 1
+      (score X [[Full X; Full O; Empty];
+                [Full X; Full O; Empty];
+                [Full X; Empty;  Empty]]);
+      assert_equal 0
+      (score X [[Full X; Full O; Empty];
+                [Full X; Empty;  Empty];
+                [Empty;  Empty;  Empty]])
+    );
+
+    "scores next moves" >:: ( fun () ->
+      assert_equal (-1)
+      (score X [[Full X; Full O;  Empty];
+                [Full X; Full O;  Empty];
+                [Empty;  Full O; Full X]]);
+      assert_equal 1
+      (score X [[Full X; Full O; Empty];
+                [Full X; Full O; Empty];
+                [Full X; Empty;  Empty]]);
+      assert_equal 0
+      (score X [[Full X; Full O; Empty];
+                [Full X; Empty;  Empty];
+                [Empty;  Empty;  Empty]])
+    );
+
+    "calcluates other turn" >:: ( fun () ->
+      assert_equal O (otherTurn X);
+      assert_equal X (otherTurn O)
+    );
+
+    "calcluates whether a board is a terminal node" >:: ( fun () ->
+      assert_equal true
+                   (isTerminal [[Full X; Full X; Full X];
+                                [Empty;  Empty;  Empty ];
+                                [Empty;  Empty;  Empty ]]);
+      assert_equal false
+                   (isTerminal [[Full X; Empty; Full O];
+                                [Empty;  Empty; Empty ];
+                                [Empty;  Empty; Empty ]]);
+    );
   ]
 
 (* Test Runner *)

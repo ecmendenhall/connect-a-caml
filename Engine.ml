@@ -19,6 +19,12 @@ module Engine =
       else
         Pending
 
+    let boardIsDraw board =
+      List.fold_left (&&) true (List.flatten (Board.map (fun sq -> match sq with
+                                                           | Full _ -> true
+                                                           | _ -> false)
+                                             board))
+
     let getState states =
       let wins = (List.filter (fun state -> state <> Pending) states) in
         match wins with
@@ -30,5 +36,9 @@ module Engine =
                          Board.getColumns board @
                          Board.getDiagonals board)
 
-   let boardState board = getState (rowStates board)
+   let boardState board =
+     if boardIsDraw board then
+       Draw
+      else
+        getState (rowStates board)
   end;;
