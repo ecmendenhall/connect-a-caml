@@ -39,8 +39,8 @@ module Engine =
 
     let board_is_draw board =
        List.fold_left (&&) true (List.map row_is_drawn (board @
-                                                       Board.get_columns board @
-                                                       Board.get_diagonals board))
+                                                        Board.get_columns board @
+                                                        Board.get_diagonals board))
     let get_state states =
       let wins = List.filter (fun state -> state <> Pending) states in
         match wins with
