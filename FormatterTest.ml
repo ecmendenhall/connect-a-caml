@@ -1,20 +1,20 @@
 open OUnit
 open Types
 include Types
-open Output
-include Output
+open Formatter
+include Formatter
 
 let tests = "Output" >:::
   [
     "converts a square to a string" >:: ( fun () ->
-      assert_equal " O " (print_square (Full O));
-      assert_equal " X " (print_square (Full X));
-      assert_equal "   " (print_square Empty);
+      assert_equal " O " (square_string (Full O));
+      assert_equal " X " (square_string (Full X));
+      assert_equal "   " (square_string Empty);
     );
 
     "converts a row to a string" >:: ( fun () ->
       assert_equal " O |   |   "
-                   (print_row [Full O; Empty;  Empty ];)
+                   (row_string [Full O; Empty;  Empty ];)
 
     );
 
@@ -30,7 +30,7 @@ let tests = "Output" >:::
                     " X | X | O \n" ^
                     "---+---+---\n" ^
                     "   |   |   \n")
-                   (print_board [[Full O; Empty;  Empty ];
+                   (board_string [[Full O; Empty;  Empty ];
                                  [Full X; Full X; Full O];
                                  [Empty;  Empty;  Empty]]);
       assert_equal (
@@ -41,11 +41,15 @@ let tests = "Output" >:::
                     "   |   | X |   \n" ^
                     "---+---+---+---\n" ^
                     "   |   |   | O \n")
-                   (print_board [[Full X; Empty;   Empty;  Empty];
+                   (board_string [[Full X; Empty;   Empty;  Empty];
                                  [Empty;  Full O;  Empty;  Empty];
                                  [Empty;  Empty;   Full X; Empty];
                                  [Empty;  Empty;   Empty;  Full O]])
 
+    );
+
+    "ignores message types" >:: ( fun () ->
+      assert_equal "Hello world!" (message_string "Hello world!" Error)
     );
 
   ]
