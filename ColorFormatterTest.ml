@@ -4,7 +4,7 @@ include Types
 open ColorFormatter
 include ColorFormatter
 
-let tests = "Output" >:::
+let tests = "Color Formatter" >:::
   [
     "maps colors to ANSI escapes" >:: ( fun () ->
       assert_equal "\x1b[1;31m" (ansi_color Red);

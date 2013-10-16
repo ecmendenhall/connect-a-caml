@@ -4,7 +4,7 @@ include Types
 open Formatter
 include Formatter
 
-let tests = "Output" >:::
+let tests = "Formatter" >:::
   [
     "converts a square to a string" >:: ( fun () ->
       assert_equal " O " (square_string (Full O));

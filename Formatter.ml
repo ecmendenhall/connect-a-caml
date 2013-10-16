@@ -4,6 +4,7 @@ open Util
 
 module Formatter =
   struct
+      type message = Types.message
       let square_string square = match square with
         | Full X -> " X "
         | Full O -> " O "
