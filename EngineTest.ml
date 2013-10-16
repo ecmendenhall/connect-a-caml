@@ -13,6 +13,15 @@ let tests = "Engine" >:::
       assert_equal false (row_has_win [Full X; Empty; Empty; Empty])
     );
 
+    "checks a row for draws" >:: ( fun () ->
+      assert (row_is_drawn [Full X; Full O; Empty]);
+      assert (row_is_drawn [Empty; Empty; Empty; Empty; Full O; Full X]);
+      assert_equal false (row_is_drawn [Full X; Empty; Empty]);
+      assert_equal false (row_is_drawn [Empty; Empty; Empty]);
+      assert_equal false (row_is_drawn [Full O; Full O; Full O; Full O]);
+      assert_equal false (row_is_drawn [Empty; Empty; Empty; Empty; Full O; Empty]);
+    );
+
     "returns a row's winner or Pending" >:: ( fun () ->
       assert_equal (Win X) (row_state [Full X; Full X; Full X]);
       assert_equal (Win O) (row_state [Full O; Full O; Full O]);
@@ -66,6 +75,15 @@ let tests = "Engine" >:::
                   (board_state [[Full X; Full O; Full X];
                                 [Full O; Full X; Full X];
                                 [Full O; Full X; Full O]]);
+    );
+
+    "checks a board for early draws" >:: ( fun () ->
+     assert_equal Draw
+                  (board_state [[Full X; Empty;  Empty;  Full O; Empty];
+                                [Full O; Full O; Full X; Full O; Empty];
+                                [Empty;  Full O; Empty;  Full X;  Empty];
+                                [Empty;  Full X; Full O; Empty;  Full X];
+                                [Empty;  Full X; Empty;  Empty;  Full O]]);
     );
   ]
 

@@ -86,11 +86,6 @@ let tests = "Minimax" >:::
                     [Empty;  Empty;  Empty]])
     );
 
-    "calcluates other turn" >:: ( fun () ->
-      assert_equal O (other_turn X);
-      assert_equal X (other_turn O)
-    );
-
     "calcluates whether a board is a terminal node" >:: ( fun () ->
       assert_equal true
                    (is_terminal [[Full X; Full X; Full X];

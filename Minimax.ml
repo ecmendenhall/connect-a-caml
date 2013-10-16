@@ -25,20 +25,25 @@ module Minimax =
          | Win O   -> -score
          | _       -> 0
 
-   let other_turn turn = match turn with
-     | X -> O
-     | O -> X
-
    let is_terminal board = Engine.board_state board <> Pending
 
+   let max_score scores = List.fold_left max min_int scores
+
+   let min_score scores = List.fold_left min max_int scores
+
    let rec minimax depth turn board =
-     if depth = 0 || is_terminal board then
+     if (depth = 0) || (is_terminal board) then
        leaf_score turn board
      else
        let next = next_moves turn board in
        if turn = X then
-         List.fold_left max min_int (List.map (minimax (depth - 1) (other_turn turn)) next)
+         max_score (List.map (minimax (depth - 1) O) next)
        else
-         List.fold_left min max_int (List.map (minimax (depth - 1) (other_turn turn)) next)
+         min_score (List.map (minimax (depth - 1) X) next)
+
+   let best_move depth turn board =
+     let next = next_moves turn board in
+     let scores = List.map (fun board -> (minimax depth turn board), board) next in
+       (List.sort (fun a b -> compare (fst b) (fst a)) scores)
 
   end;;

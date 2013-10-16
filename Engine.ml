@@ -19,12 +19,28 @@ module Engine =
       else
         Pending
 
-    let board_is_draw board =
-      List.fold_left (&&) true (List.flatten (Board.map (fun sq -> match sq with
-                                                           | Full _ -> true
-                                                           | _      -> false)
-                                             board))
+    let rec contains_O row = match row with
+      | []           -> false
+      | Full O :: xs -> true
+      | _ :: xs      -> contains_O xs
 
+    let rec contains_X row = match row with
+      | []           -> false
+      | Full X :: xs -> true
+      | _ :: xs      -> contains_X xs
+
+    let rec row_is_drawn row =
+      let full_squares = List.filter (fun sq -> sq <> Empty) row in
+      match full_squares with
+        | Full X :: xs -> contains_O xs
+        | Full O :: xs -> contains_X xs
+        | []           -> false
+        | _ :: xs      -> row_is_drawn xs
+
+    let board_is_draw board =
+       List.fold_left (&&) true (List.map row_is_drawn (board @
+                                                       Board.get_columns board @
+                                                       Board.get_diagonals board))
     let get_state states =
       let wins = List.filter (fun state -> state <> Pending) states in
         match wins with
