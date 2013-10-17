@@ -1,6 +1,4 @@
 open OUnit
-open Types
-include Types
 open ColorFormatter
 include ColorFormatter
 

@@ -1,10 +1,11 @@
-open Types
-include Types
 open Matrix
 open Util
 
 module Board =
   struct
+    open Types
+    include Types
+
     let empty_board size =
       Matrix.square_matrix size Empty
 

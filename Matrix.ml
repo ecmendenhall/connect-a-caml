@@ -1,5 +1,3 @@
-open Types
-include Types
 open Util
 
 module Matrix =

@@ -1,8 +1,8 @@
-open Types
 open Util
 
 module ColorFormatter =
   struct
+    open Types
     include Types
       type color = Red | Green | Yellow | Blue | Magenta | Cyan
 

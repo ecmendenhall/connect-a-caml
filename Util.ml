@@ -1,6 +1,3 @@
-open Types
-include Types
-
 module Util =
   struct
     let rec split_before_iter n acc items = match n, items with

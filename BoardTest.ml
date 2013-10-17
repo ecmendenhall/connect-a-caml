@@ -1,6 +1,7 @@
 open OUnit
 open Board
 open Types
+include Types
 
 let tests = "Board" >:::
   [

@@ -1,10 +1,10 @@
-open Types
-include Types
 open Board
 open Engine
 
 module Minimax =
   struct
+    open Types
+    include Types
 
     let fill_or_pass turn board row column square =
       if square = Empty then

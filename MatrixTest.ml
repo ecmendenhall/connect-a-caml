@@ -1,5 +1,6 @@
 open OUnit
 open Types
+include Types
 open Matrix
 include Matrix
 

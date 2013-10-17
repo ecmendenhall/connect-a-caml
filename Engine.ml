@@ -2,8 +2,8 @@ open Board
 
 module Engine =
   struct
+    open Types
     include Types
-
     let row_has_win row = match row with
       | []          -> false
       | Empty :: xs -> false
