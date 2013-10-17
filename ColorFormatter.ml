@@ -1,7 +1,9 @@
+open Types
 open Util
 
 module ColorFormatter =
   struct
+    include Types
       type color = Red | Green | Yellow | Blue | Magenta | Cyan
 
       let ansi_color color =

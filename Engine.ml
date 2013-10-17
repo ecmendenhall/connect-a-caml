@@ -1,9 +1,8 @@
-open Types
-include Types
 open Board
 
 module Engine =
   struct
+    include Types
 
     let row_has_win row = match row with
       | []          -> false

@@ -19,6 +19,11 @@ let tests = "Output" >:::
   [
     "prints a string" >:: ( fun () ->
         Output.print "Hello world!";
+        assert_equal (!last_printed) "Hello world!"
+    );
+
+    "printlns a string" >:: ( fun () ->
+        Output.println "Hello world!";
         assert_equal (!last_printed) "Hello world!\n"
     );
 
@@ -39,7 +44,7 @@ let tests = "Output" >:::
                       "---+---+---\n" ^
                       "   |   |   \n" ^
                       "---+---+---\n" ^
-                      "   |   |   \n\n")
+                      "   |   |   \n")
     );
 
   ]
