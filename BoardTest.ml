@@ -119,6 +119,16 @@ let tests = "Board" >:::
                     [2, 0; 2, 1; 2, 2]]
                    (Board.map_row_column (fun r c _ -> (r, c)) board)
     );
+
+    "throws an error when trying to fill a full square" >:: (fun () ->
+      let board = [[Full X; Full O; Empty];
+                   [Full X; Full O; Empty];
+                   [Full O; Empty;  Full X]] in
+      assert_equal [[Empty]]
+                   (try (Board.fill_square 0 0 O board) with
+                     | Board.FullSquare -> [[Empty]]
+                     | _                -> [[Full X]])
+    );
   ]
 
 (* Test Runner *)

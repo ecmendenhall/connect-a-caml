@@ -1,6 +1,7 @@
 open OUnit
 open HumanFunctor
 open XToken
+open Board
 open Types
 include Types
 
@@ -41,6 +42,11 @@ let tests = "Human" >:::
       assert_equal [1; 2] (Human.coord_of_string "1, 2")
     );
 
+    "validates user-submitted coordinates" >:: ( fun () ->
+      assert_equal false (Human.valid_move [10; -3] (Board.empty_board 3));
+      assert_equal false (Human.valid_move [0; 3] (Board.empty_board 3));
+      assert_equal true  (Human.valid_move [0; 2] (Board.empty_board 3))
+    );
   ]
 
 (* Test Runner *)
