@@ -1,4 +1,4 @@
-open IReader
+open ReaderInterface
 
 module InputFunctor (Reader : READER) =
     struct

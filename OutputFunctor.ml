@@ -1,5 +1,5 @@
-open IFormatter
-open IPrinter
+open FormatterInterface
+open PrinterInterface
 
 module OutputFunctor (Formatter : FORMATTER) (Printer : PRINTER) =
     struct

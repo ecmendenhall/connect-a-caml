@@ -1,5 +1,5 @@
-open IInput
-open IOutput
+open InputInterface
+open OutputInterface
 
 module ConsoleIOFunctor (Input : INPUT) (Output : OUTPUT) =
   struct
