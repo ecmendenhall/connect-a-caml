@@ -12,6 +12,6 @@ module ConsoleIOFunctor (Input : INPUT) (Output : OUTPUT) =
       Output.print_board board
 
     let show_message message message_type =
-      Output.print_message message_type
+      Output.print_message message message_type
 
   end;;

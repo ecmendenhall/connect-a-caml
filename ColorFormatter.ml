@@ -35,7 +35,7 @@ module ColorFormatter =
         | Info     -> colored_string message Cyan
         | Prompt X -> colored_string message Green
         | Prompt O -> colored_string message Blue
-        | Normal   -> message
+        | Normal   -> colored_string message Yellow
 
       let board_string board =
         let separator = row_separator (List.length board) in

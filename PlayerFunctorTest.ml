@@ -23,8 +23,8 @@ let tests = "Player" >:::
     );
 
     "is parameterized by a GameToken" >:: ( fun () ->
-      assert_equal X PlayerX.get_gamepiece;
-      assert_equal O PlayerO.get_gamepiece
+      assert_equal X (PlayerX.get_gamepiece ());
+      assert_equal O (PlayerO.get_gamepiece ())
     );
   ]
 

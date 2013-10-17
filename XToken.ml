@@ -3,5 +3,5 @@ module XToken =
     open Types
     include Types
 
-    let get_gamepiece = X
+    let get_gamepiece () = X
   end;;

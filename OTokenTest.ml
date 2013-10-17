@@ -6,7 +6,7 @@ include Types
 let tests = "O Token wrapper" >:::
   [
     "OToken returns O" >:: ( fun () ->
-      assert_equal O OToken.get_gamepiece
+      assert_equal O (OToken.get_gamepiece ())
     );
   ]
 

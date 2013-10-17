@@ -44,8 +44,8 @@ module Minimax =
    let best_move depth turn board =
      let next = next_moves turn board in
      let scores = List.map (fun board -> (minimax depth turn board), board) next in
-       List.hd (List.sort (fun a b -> compare (fst b) (fst a)) scores)
+       snd (List.hd (List.sort (fun a b -> compare (fst b) (fst a)) scores))
 
-   let next_move turn board = best_move 5 turn board
+   let next_move turn board = best_move 2 turn board
 
   end;;

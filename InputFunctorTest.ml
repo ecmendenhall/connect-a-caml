@@ -5,7 +5,7 @@ open InputFunctor
 
 module MockPervasives =
   struct
-    let read_line unit =
+    let read_line () =
       "Hello world!"
   end;;
 
@@ -14,7 +14,7 @@ module Input = InputFunctor (MockPervasives)
 let tests = "Input" >:::
   [
     "Reads lines from its input source" >:: ( fun () ->
-      assert_equal "Hello world!" Input.read_line
+      assert_equal "Hello world!" (Input.read_line ())
     );
 
   ]

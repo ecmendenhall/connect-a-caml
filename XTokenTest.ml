@@ -6,7 +6,7 @@ include Types
 let tests = "X Token wrapper" >:::
   [
     "XToken returns X" >:: ( fun () ->
-      assert_equal X XToken.get_gamepiece
+      assert_equal X (XToken.get_gamepiece ())
     );
   ]
 

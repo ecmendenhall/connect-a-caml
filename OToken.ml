@@ -3,5 +3,5 @@ module OToken =
     open Types
     include Types
 
-    let get_gamepiece = O
+    let get_gamepiece () = O
   end;;
