@@ -29,16 +29,13 @@ module Board =
       let board_size = List.length board in
         Util.partition_by board_size (List.mapi fn (List.flatten board))
 
-    let index_to_row index board_size =
+    let row_of_index index board_size =
       (index / board_size)
 
-    let index_to_col index board_size =
+    let col_of_index index board_size =
       (index mod board_size)
-
-    let index_to_row_col index board_size =
-      (index_to_row index board_size, index_to_col index board_size)
 
     let map_row_column fn board =
       let board_size = List.length board in
-        mapi (fun i sq -> (fn (index_to_row i board_size) (index_to_col i board_size) sq)) board
+        mapi (fun i sq -> (fn (row_of_index i board_size) (col_of_index i board_size) sq)) board
   end;;

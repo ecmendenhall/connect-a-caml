@@ -90,10 +90,24 @@ let tests = "Board" >:::
     );
 
     "converting flattened indices to row, column coordinates" >:: (fun () ->
-      assert_equal (0, 0) (Board.index_to_row_col 0 3);
-      assert_equal (0, 1) (Board.index_to_row_col 1 3);
-      assert_equal (0, 2) (Board.index_to_row_col 2 3);
-      assert_equal (1, 0) (Board.index_to_row_col 3 3);
+      assert_equal 0 (Board.row_of_index 0 3);
+      assert_equal 0 (Board.col_of_index 0 3);
+      assert_equal 0 (Board.row_of_index 1 3);
+      assert_equal 1 (Board.col_of_index 1 3);
+      assert_equal 0 (Board.row_of_index 2 3);
+      assert_equal 2 (Board.col_of_index 2 3);
+      assert_equal 1 (Board.row_of_index 3 3);
+      assert_equal 0 (Board.col_of_index 3 3);
+    );
+
+    "map_row_column" >:: (fun () ->
+      let board = [[Full X; Full O; Empty];
+                   [Full X; Full O; Empty];
+                   [Full O; Empty;  Full X]] in
+      assert_equal [[0, 0; 0, 1; 0, 2];
+                    [1, 0; 1, 1; 1, 2];
+                    [2, 0; 2, 1; 2, 2]]
+                   (Board.map_row_column (fun r c _ -> (r, c)) board)
     );
 
     "map_row_column" >:: (fun () ->
