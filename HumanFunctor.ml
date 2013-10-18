@@ -53,4 +53,6 @@ module HumanFunctor (IO : IO) =
       turn_prompt turn;
       IO.show_message "Please enter your move as a row, column coordinate." Normal;
       coord_of_string (IO.get_input ())
+
+    let next_move turn board = [[Empty]]
   end;;
