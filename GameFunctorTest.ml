@@ -66,10 +66,6 @@ let tests = "Game" >:::
         assert_equal "don't change me!" !last_message
     );
 
-    "Prints a play again message" >:: ( fun () ->
-      Game.play_again_message ();
-      assert_equal "Play again? [y]es or [n]o:" !last_message
-    );
 
     "Plays a round when it's X's turn" >:: ( fun () ->
       assert_equal turn_one (Game.play_round X empty)

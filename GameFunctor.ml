@@ -20,9 +20,6 @@ module GameFunctor (IO : IO) (PlayerX : PLAYER) (PlayerO : PLAYER) =
           | Win O -> IO.show_message (prefix ^ "Player O wins.") (Prompt O)
           | _     -> ()
 
-    let play_again_message () =
-      IO.show_message "Play again? [y]es or [n]o:" Info
-
     let rec game_loop turn board =
       IO.show_board board;
       let next_turn = match turn with X -> O | O -> X in

@@ -10,12 +10,16 @@ include Types
 open Board
 open String
 open StrategyInterface
+open RandomMove
+open HumanFunctor
 
 module MainFunctor (IO : IO) =
   struct
     open Types
     include Types
-    let welcome_message () = IO.show_message "Welcome to Tic-Tac-Toe!" Info
+    let welcome_message () =
+      IO.clear_screen ();
+      IO.show_message "Welcome to Tic-Tac-Toe!\n" Info
 
     let player_message symbol =
       let suffix = " be a [h]uman or [c]omputer?" in
@@ -25,11 +29,35 @@ module MainFunctor (IO : IO) =
 
     let rec get_strategy symbol =
       player_message symbol;
+      let module Human = HumanFunctor (IO) in
       let raw_input = IO.get_input () in
       let lowercase = String.lowercase raw_input in
       match lowercase with
-      | "c" -> (module Minimax : STRATEGY)
-      | _   -> get_strategy symbol
+      | "c"
+      | "computer" -> (module Minimax : STRATEGY)
+      | "r"
+      | "random"   -> (module RandomMove : STRATEGY)
+      | "h"
+      | "human"    -> (module Human : STRATEGY)
+      | _          -> get_strategy symbol
+
+    let board_size_message () =
+      IO.show_message "Please choose a board size between 3 and 9:" Normal
+
+    let rec board_size_prompt () =
+      let raw_input = IO.get_input () in
+      try int_of_string raw_input with
+       | Failure _ -> board_size_prompt ()
+
+    let valid_size size =
+      size > 2 && size < 10
+
+    let rec get_size () =
+      board_size_message ();
+      let size = board_size_prompt () in
+      match valid_size size with
+        | true  -> size
+        | false -> get_size ()
 
     let new_game () =
       let (module XStrategy : STRATEGY) = get_strategy X in
@@ -38,11 +66,31 @@ module MainFunctor (IO : IO) =
       let (module OStrategy : STRATEGY) = get_strategy O in
       let module PlayerO = PlayerFunctor (OStrategy) (OToken) in
 
+      let size = get_size () in
       let module Game    = GameFunctor (IO) (PlayerX) (PlayerO) in
-        Game.game_loop X (Board.empty_board 3)
+        Game.game_loop X (Board.empty_board size)
+
+    let play_again_message () =
+      IO.show_message "Play again? [y]es or [n]o:" Info
+
+    let rec play_again_prompt () =
+      let raw_input = IO.get_input () in
+      let lowercase  = String.lowercase raw_input in
+      match lowercase with
+      | "y"
+      | "yes" -> true
+      | "n"
+      | "no"  -> false
+      | _     -> play_again_prompt ()
+
+    let rec loop () =
+      new_game();
+      play_again_message();
+      let again = play_again_prompt () in
+        if again then loop () else ()
 
     let run () =
       welcome_message ();
-      while true do new_game(); done
+      loop ();
 
   end;;

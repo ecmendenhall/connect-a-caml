@@ -4,11 +4,15 @@ open OutputInterface
 module ConsoleIOFunctor (Input : INPUT) (Output : OUTPUT) =
   struct
 
-    let get_input u =
-      Output.print ">> ";
-      Input.read_line u
+    let clear_screen () =
+      Output.clear_print ""
+
+    let get_input () =
+      Output.print "\xe2\x9e\xa4\xe2\x9e\xa4 ";
+      Input.read_line ()
 
     let show_board board =
+      Output.clear_print "\n";
       Output.print_board board
 
     let show_message message message_type =

@@ -39,6 +39,53 @@ let tests = "Main" >:::
       Main.player_message O;
       assert_equal "Will Player O be a [h]uman or [c]omputer?" !last_message;
     );
+
+    "Prints a play again message" >:: ( fun () ->
+      Main.play_again_message ();
+      assert_equal "Play again? [y]es or [n]o:" !last_message
+    );
+
+    "Prompts the user to play again and returns true if yes" >:: ( fun () ->
+      input := "y";
+      assert (Main.play_again_prompt ())
+    );
+
+    "Prompts the user to play again and returns false if no" >:: ( fun () ->
+      input := "n";
+      assert_equal false (Main.play_again_prompt ())
+    );
+
+    "Handles uppercase input" >:: ( fun () ->
+      input := "N";
+      assert_equal false (Main.play_again_prompt ());
+
+      input := "Y";
+      assert (Main.play_again_prompt ())
+    );
+
+    "Handles full word input" >:: ( fun () ->
+      input := "NO";
+      assert_equal false (Main.play_again_prompt ());
+
+      input := "yEs";
+      assert (Main.play_again_prompt ())
+    );
+
+    "Prints a board size message" >:: ( fun () ->
+      Main.board_size_message ();
+      assert_equal "Please choose a board size between 3 and 9:" !last_message
+    );
+
+    "Prompts for and parses a size" >:: ( fun () ->
+      input := "4";
+      assert_equal 4 (Main.board_size_prompt ())
+    );
+
+    "Rejects invalid sizes" >:: ( fun () ->
+      assert_equal false (Main.valid_size 900);
+      assert_equal false (Main.valid_size (-3))
+    );
+
   ]
 
 (* Test Runner *)

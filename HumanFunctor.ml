@@ -54,5 +54,8 @@ module HumanFunctor (IO : IO) =
       IO.show_message "Please enter your move as a row, column coordinate." Normal;
       coord_of_string (IO.get_input ())
 
-    let next_move turn board = [[Empty]]
+    let next_move turn board =
+      let coord = get_move turn in
+        Board.fill_square (row coord) (col coord) turn board
+
   end;;

@@ -7,5 +7,5 @@ module OutputFunctor (Formatter : FORMATTER) (Printer : PRINTER) =
       let println str = Printer.print_string (str ^ "\n")
       let print str = Printer.print_string str
       let print_message message message_type = println (Formatter.message_string message message_type)
-      let print_board board = print (Formatter.board_string board)
+      let print_board board = println (Formatter.board_string board)
     end;;
