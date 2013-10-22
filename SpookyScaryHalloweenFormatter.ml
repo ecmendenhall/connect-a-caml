@@ -19,8 +19,7 @@ module SpookyScaryHalloweenFormatter =
     let message_string message message_type = match message_type with
       | Error ->  "\xf0\x9f\x98\xa8  " ^ message
       | _     ->  ("\xf0\x9f\x92\x80 \xf0\x9f\x8e\x83 \xf0\x9f\x91\xbb  " ^
-                   message ^
-                   " \xf0\x9f\x91\xbb \xf0\x9f\x8e\x83 \xf0\x9f\x92\x80")
+                   message)
 
     let board_string board =
       let separator = row_separator (List.length board) in
