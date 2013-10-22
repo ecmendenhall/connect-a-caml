@@ -14,6 +14,8 @@ module MockIO =
   struct
     let get_input u =
       !input
+    let clear_screen u =
+      ()
     let show_board board =
       last_board := board
     let show_message message message_type =

@@ -10,9 +10,8 @@ module HumanFunctor (IO : IO) =
 
     let your_turn turn =
       let prefix = "Your turn, player " in
-      match turn with
-        | X -> prefix ^ "X"
-        | O -> prefix ^ "O"
+      let player = if turn = X then "X" else "O" in
+        prefix ^ player
 
     let turn_prompt turn =
       IO.show_message (your_turn turn) (Prompt turn)

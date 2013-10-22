@@ -23,9 +23,10 @@ module MainFunctor (IO : IO) =
 
     let player_message symbol =
       let suffix = " be a [h]uman or [c]omputer?" in
-      match symbol with
-      | X -> IO.show_message ("Will Player X" ^ suffix) (Prompt X)
-      | O -> IO.show_message ("Will Player O" ^ suffix) (Prompt O)
+      if symbol = X then
+        IO.show_message ("Will Player X" ^ suffix) (Prompt X)
+      else
+        IO.show_message ("Will Player O" ^ suffix) (Prompt O)
 
     let rec get_strategy symbol =
       player_message symbol;

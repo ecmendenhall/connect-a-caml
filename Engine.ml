@@ -20,12 +20,12 @@ module Engine =
 
     let rec contains_O row = match row with
       | []           -> false
-      | Full O :: xs -> true
+      | Full O :: _  -> true
       | _ :: xs      -> contains_O xs
 
     let rec contains_X row = match row with
       | []           -> false
-      | Full X :: xs -> true
+      | Full X :: _  -> true
       | _ :: xs      -> contains_X xs
 
     let rec row_is_drawn row =
