@@ -9,18 +9,19 @@ let last_board = ref [[Empty]]
 let last_message = ref ""
 let empty = Board.empty_board 3
 
-let turn_one = [[Full X; Empty; Empty];
-                [Empty;  Empty; Empty];
-                [Empty;  Empty; Empty]]
+let turn_one = [[Full X; Full O; Empty];
+                [Empty;  Empty;  Empty];
+                [Empty;  Full O; Empty]]
 
-let turn_two = [[Full X; Empty;  Empty];
+let turn_two = [[Full X; Full O; Empty];
                 [Empty;  Full O; Empty];
-                [Empty;  Empty;  Empty]]
+                [Empty;  Full O;  Empty]]
 
 module MockIO =
   struct
     let get_input u =
       !input
+    let clear_screen () = ()
     let show_board board =
       last_board := board
     let show_message message message_type =
@@ -75,7 +76,10 @@ let tests = "Game" >:::
       assert_equal turn_two (Game.play_round O (Game.play_round X empty))
     );
 
-
+    "runs the game loop to completion" >:: ( fun () ->
+      (Game.game_loop X empty);
+      assert_equal "Game over: Player O wins." !last_message
+    );
 
   ]
 

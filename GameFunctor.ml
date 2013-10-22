@@ -8,9 +8,11 @@ module GameFunctor (IO : IO) (PlayerX : PLAYER) (PlayerO : PLAYER) =
     open Types
     include Types
 
-    let play_round turn board = match turn with
-      | X -> PlayerX.next_move board
-      | O -> PlayerO.next_move board
+    let play_round turn board =
+      if turn = X then
+        PlayerX.next_move board
+      else
+        PlayerO.next_move board
 
     let game_over_message state =
       let prefix = "Game over: " in
@@ -23,7 +25,7 @@ module GameFunctor (IO : IO) (PlayerX : PLAYER) (PlayerO : PLAYER) =
     let rec game_loop turn board =
       IO.show_board board;
       let next_turn = match turn with X -> O | O -> X in
-        match Engine.board_state board with
+      match Engine.board_state board with
           | Pending  -> game_loop next_turn (play_round next_turn board)
           | end_type -> game_over_message end_type
   end;;
