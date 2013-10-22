@@ -31,6 +31,28 @@ lists of squares, like `[[Empty; Empty; Full X;]]`.
 ### Lists
 Lists are semicolon-separated: `[1; 2; 3; 4; 5]`.
 
+### Functions
+The `let <name> =` construct binds a name to a value or funciton. If the thing after `let` is followed by `=`,
+it's a value. If the thing after `let` is followed by more things, it's a function and those things are its
+arguments.
+
+```
+let pi = 3.14
+
+let circle_area radius =
+  pi *. radius ** 2.0
+```
+
+Functions can also be declared anonymously:
+
+```
+# List.map (fun r -> pi *. r ** 2.0) [5.0; 10.0; 20.0];;
+- : float list = [78.5; 314.; 1256.]
+```
+
+The body of a function contains both an implicit do (statements terminated with a semicolon are
+evaluated for side effects) and an implicit return (the last thing in the body is the return value).
+
 ### Interfaces
 Like C, interfaces are specified in separate files from implementations. Interface files
 end in `.mli` and describe names and type signatures for each function in a module. They can
@@ -117,7 +139,6 @@ match valid_size size with
   | false -> get_size ()
 ```
 
-
 ### Destructuring
 The `::` symbol is the cons operator, which works just like `cons` in Lisp:
 
@@ -193,3 +214,10 @@ let _ = Game.game_loop X (Board.empty_board 3)
 ### Type conversion
 Idiomatic OCaml uses function names like `int_of_string` and `float_of_int` for casting one
 type to another.
+
+### Parentheses
+Are used to control order of evaluation. Unfortunately, there is nothing like Haskell's `$` operator,
+and anyways, it would be `€`.
+
+### Other symbols
+The `^` operator concatenates strings. The `@` operator concatenates collections.
