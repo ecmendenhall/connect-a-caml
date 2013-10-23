@@ -1,14 +1,24 @@
 def installed? name
   verbose(false) do
-    puts "Looking for #{name}..."
-    sh "which #{name}"
+    begin
+      puts "Looking for #{name}..."
+      sh "which #{name}"
+      true
+    rescue
+      false
+    end
   end
 end
 
 def package_installed? name
   verbose(false) do
-    puts "Looking for OCaml package #{name}..."
-    sh "ocamlfind query #{name}"
+    begin
+      puts "Looking for OCaml package #{name}..."
+      sh "ocamlfind query #{name}"
+      true
+    rescue
+      false
+    end
   end
 end
 
