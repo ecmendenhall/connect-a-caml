@@ -2,7 +2,6 @@ def installed? name
   verbose(false) do
     puts "Looking for #{name}..."
     sh "which #{name}"
-    puts
   end
 end
 
@@ -10,7 +9,6 @@ def package_installed? name
   verbose(false) do
     puts "Looking for OCaml package #{name}..."
     sh "ocamlfind query #{name}"
-    puts
   end
 end
 
