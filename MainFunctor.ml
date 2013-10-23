@@ -22,7 +22,7 @@ module MainFunctor (IO : IO) =
       IO.show_message "Welcome to Tic-Tac-Toe!\n" Info
 
     let player_message symbol =
-      let suffix = " be a [h]uman or [c]omputer?" in
+      let suffix = " be a [h]uman, [m]inimax, or [r]andom player?" in
       if symbol = X then
         IO.show_message ("Will Player X" ^ suffix) (Prompt X)
       else
@@ -34,13 +34,15 @@ module MainFunctor (IO : IO) =
       let raw_input = IO.get_input () in
       let lowercase = String.lowercase raw_input in
       match lowercase with
-      | "c"
-      | "computer" -> (module Minimax : STRATEGY)
+      | "m"
+      | "minimax"  -> (module Minimax : STRATEGY)
       | "r"
       | "random"   -> (module RandomMove : STRATEGY)
       | "h"
       | "human"    -> (module Human : STRATEGY)
-      | _          -> get_strategy symbol
+      | _          ->
+          IO.show_message "Sorry. That's not a player option." Error;
+          get_strategy symbol
 
     let board_size_message () =
       IO.show_message "Please choose a board size between 3 and 9:" Normal
@@ -48,17 +50,38 @@ module MainFunctor (IO : IO) =
     let rec board_size_prompt () =
       let raw_input = IO.get_input () in
       try int_of_string raw_input with
-       | Failure _ -> board_size_prompt ()
+       | Failure _ ->
+           IO.show_message "That's not a valid board size! Try entering a number." Error;
+           board_size_prompt ()
 
-    let valid_size size =
-      size > 2 && size < 10
+    let too_small size = size <= 2
+
+    let too_big  size = size >= 10
+
+    let validate_size size =
+      if too_big size then
+        "Too big"
+      else
+        if too_small size then
+          "Too small"
+        else
+          "OK"
+
+    let valid_size size =  validate_size size = "OK"
+
+    let size_error size = match validate_size size with
+      | "Too big"   -> IO.show_message "We'll be here forever! Try a smaller board." Error
+      | "Too small" -> IO.show_message "That's pretty small. How about a bigger board?" Error
+      | _           -> ()
 
     let rec get_size () =
       board_size_message ();
       let size = board_size_prompt () in
-      match valid_size size with
-        | true  -> size
-        | false -> get_size ()
+      if valid_size size then
+        size
+      else
+        let _ = size_error size in
+        get_size ()
 
     let new_game () =
       let (module XStrategy : STRATEGY) = get_strategy X in
@@ -84,14 +107,14 @@ module MainFunctor (IO : IO) =
       | "no"  -> false
       | _     -> play_again_prompt ()
 
-    let rec loop () =
+    let rec input_loop () =
       new_game();
       play_again_message();
       let again = play_again_prompt () in
-        if again then loop () else ()
+        if again then input_loop () else ()
 
     let run () =
       welcome_message ();
-      loop ();
+      input_loop ();
 
   end;;

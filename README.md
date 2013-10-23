@@ -53,6 +53,8 @@ Functions can also be declared anonymously:
 The body of a function contains both an implicit do (statements terminated with a semicolon are
 evaluated for side effects) and an implicit return (the last thing in the body is the return value).
 
+Ocaml functions are curried, so feeding a function fewer arguments than it expects returns a partial.
+
 ### Interfaces
 Like C, interfaces are specified in separate files from implementations. Interface files
 end in `.mli` and describe names and type signatures for each function in a module. They can

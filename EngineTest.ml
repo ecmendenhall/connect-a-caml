@@ -88,6 +88,16 @@ let tests = "Engine" >:::
                                 [Empty;  Full X; Empty];
                                 [Empty;  Empty;  Full X]]);
 
+     assert_equal (Win X)
+                  (board_state [[Empty; Empty;  Full X];
+                                [Empty;  Full X; Empty];
+                                [Full X;  Empty;  Empty]]);
+
+     assert_equal (Win O)
+                  (board_state [[Empty; Empty;  Full O];
+                                [Empty;  Full O; Empty];
+                                [Full O;  Empty;  Empty]]);
+
      assert_equal (Win O)
                   (board_state [[Empty;  Empty;  Full O];
                                 [Empty;  Full O; Empty];

@@ -26,6 +26,6 @@ module GameFunctor (IO : IO) (PlayerX : PLAYER) (PlayerO : PLAYER) =
       IO.show_board board;
       let next_turn = match turn with X -> O | O -> X in
       match Engine.board_state board with
-          | Pending  -> game_loop next_turn (play_round next_turn board)
+          | Pending  -> game_loop next_turn (play_round turn board)
           | end_type -> game_over_message end_type
   end;;

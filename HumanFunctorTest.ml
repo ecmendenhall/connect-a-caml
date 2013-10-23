@@ -5,15 +5,17 @@ open Board
 open Types
 include Types
 
-let input = ref "0,0"
+let input = ref ["0,0"]
 let last_board = ref [[Empty]]
 let last_message = ref ""
 let last_message_type = Error
 
 module MockIO =
   struct
-    let get_input u =
-      !input
+    let get_input () =
+      let deqd = List.hd !input in
+        input := List.tl !input;
+        deqd
     let clear_screen u =
       ()
     let show_board board =
@@ -57,22 +59,38 @@ let tests = "Human" >:::
                    (Human.make_move [0; 0] X (Board.empty_board 3))
     );
 
+    "prints an invalid move error" >:: ( fun () ->
+      Human.invalid_move_error ();
+      assert_equal "That's not a valid coordinate. Please try again." !last_message
+    );
+
+    "prints a full square error" >:: ( fun () ->
+      Human.full_square_error ();
+      assert_equal "That square is already full. Please pick another." !last_message
+    );
+
     "handles trying to fill an occupied square" >:: ( fun () ->
-      assert_equal [[Full X; Empty; Empty];
+      input := ["0,1"];
+      assert_equal [[Full X; Full O; Empty];
                     [Empty;  Empty; Empty];
                     [Empty;  Empty; Empty]]
                    (Human.make_move [0; 0] O (Board.fill_square 0 0 X (Board.empty_board 3)));
-      assert_equal "That square is already full. Please pick another."
-                   !last_message
     );
 
     "handles trying to fill an invalid square" >:: ( fun () ->
-      assert_equal [[Empty;  Empty; Empty];
+      input := ["0, 0"];
+      assert_equal [[Full O; Empty; Empty];
                     [Empty;  Empty; Empty];
                     [Empty;  Empty; Empty]]
-                   (Human.make_move [-10; 100] O (Board.empty_board 3));
-      assert_equal "That's not a valid coordinate. Please try again."
-                   !last_message
+                    (Human.make_move [-10; 100] O (Board.empty_board 3));
+    );
+
+    "gets the next move from the user" >:: ( fun () ->
+      input := ["0, 0"];
+      assert_equal [[Full O; Empty; Empty];
+                    [Empty;  Empty; Empty];
+                    [Empty;  Empty; Empty]]
+                   (Human.next_move O (Board.empty_board 3))
     );
   ]
 
