@@ -1,23 +1,17 @@
 def installed? name
   verbose(false) do
-    begin
-      puts "Looking for #{name}..."
-      sh "which #{name}"
-      true
-    rescue
-      false
+    puts "Looking for #{name}..."
+    sh "which #{name}" do |ok, exit_code|
+      return ok
     end
   end
 end
 
 def package_installed? name
   verbose(false) do
-    begin
-      puts "Looking for OCaml package #{name}..."
-      sh "ocamlfind query #{name}"
-      true
-    rescue
-      false
+    puts "Looking for OCaml package #{name}..."
+    sh "ocamlfind query #{name}" do |ok, exit_code|
+      return ok
     end
   end
 end
@@ -32,7 +26,7 @@ task :deps do
   end
 
   unless package_installed?("oUnit")
-    sh "opam install oUnit"
+    sh "opam install ounit"
   end
 end
 
