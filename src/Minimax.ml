@@ -33,18 +33,26 @@ module Minimax =
 
    let other_turn turn = if turn = X then O else X
 
-   let rec alpha_beta depth alpha beta turn player board =
+   let rec minimax depth turn player board =
      if (is_terminal board) || (depth = 0) then
        leaf_score player board
      else
        let next_boards = next_moves turn board in
        let next_turn   = other_turn turn in
        if turn = player then
-        max_score (List.map (alpha_beta (depth - 1) alpha beta next_turn player) next_boards)
+        max_score (List.map (minimax (depth - 1) next_turn player) next_boards)
        else
-        min_score (List.map (alpha_beta (depth - 1) alpha beta next_turn player) next_boards)
+        min_score (List.map (minimax (depth - 1) next_turn player) next_boards)
 
-   let score_board player board = (alpha_beta 6 1 1 (other_turn player) player board), board
+   let board_depth board =
+     match List.length board with
+       | 3 -> 5
+       | 4 -> 3
+       | 5 -> 3
+       | 6 -> 3
+       | _ -> 2
+
+   let score_board player board = (minimax (board_depth board) (other_turn player) player board), board
 
    let all_zero boards =
      List.fold_left (&&) true (List.map (fun b -> fst b = 0) boards)

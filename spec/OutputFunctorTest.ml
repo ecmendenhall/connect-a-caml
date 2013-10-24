@@ -40,11 +40,12 @@ let tests = "Output" >:::
     "prints boards as returned by the formatter" >:: ( fun () ->
         Output.print_board (Board.empty_board 3);
         assert_equal (!last_printed)
-                     ("   |   |   \n" ^
-                      "---+---+---\n" ^
-                      "   |   |   \n" ^
-                      "---+---+---\n" ^
-                      "   |   |   \n\n")
+                     ("   0   1   2 \n\n" ^
+                      "0    |   |   \n" ^
+                      "  ---+---+---\n" ^
+                      "1    |   |   \n" ^
+                      "  ---+---+---\n" ^
+                      "2    |   |   \n\n")
     );
 
   ]

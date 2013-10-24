@@ -78,7 +78,7 @@ let tests = "Main" >:::
 
     "Prints a board size message" >:: ( fun () ->
       Main.board_size_message ();
-      assert_equal "Please choose a board size between 3 and 9:" !last_message
+      assert_equal "Please choose a board size between 3 and 7:" !last_message
     );
 
     "Prompts for and parses a size" >:: ( fun () ->

@@ -11,34 +11,41 @@ let tests = "Formatter" >:::
     );
 
     "converts a row to a string" >:: ( fun () ->
-      assert_equal " O |   |   "
-                   (row_string [Full O; Empty;  Empty ];)
+      assert_equal "0  O |   |   "
+                   (row_string 0 [Full O; Empty;  Empty ];)
 
     );
 
     "generates a row separator" >:: ( fun () ->
-      assert_equal "\n---+---+---\n"         (row_separator 3);
-      assert_equal "\n---+---+---+---\n"     (row_separator 4);
-      assert_equal "\n---+---+---+---+---\n" (row_separator 5)
+      assert_equal "\n  ---+---+---\n"         (row_separator 3);
+      assert_equal "\n  ---+---+---+---\n"     (row_separator 4);
+      assert_equal "\n  ---+---+---+---+---\n" (row_separator 5)
+    );
+
+    "generates a column header" >:: ( fun () ->
+      assert_equal "   0   1   2 \n\n"         (column_header 3);
+      assert_equal "   0   1   2   3 \n\n"     (column_header 4);
+      assert_equal "   0   1   2   3   4 \n\n" (column_header 5)
     );
 
     "converts a board to a string" >:: ( fun () ->
-      assert_equal (" O |   |   \n" ^
-                    "---+---+---\n" ^
-                    " X | X | O \n" ^
-                    "---+---+---\n" ^
-                    "   |   |   \n")
+      assert_equal ("   0   1   2 \n\n" ^
+                    "0  O |   |   \n" ^
+                    "  ---+---+---\n" ^
+                    "1  X | X | O \n" ^
+                    "  ---+---+---\n" ^
+                    "2    |   |   \n")
                    (board_string [[Full O; Empty;  Empty ];
                                  [Full X; Full X; Full O];
                                  [Empty;  Empty;  Empty]]);
-      assert_equal (
-                    " X |   |   |   \n" ^
-                    "---+---+---+---\n" ^
-                    "   | O |   |   \n" ^
-                    "---+---+---+---\n" ^
-                    "   |   | X |   \n" ^
-                    "---+---+---+---\n" ^
-                    "   |   |   | O \n")
+      assert_equal ("   0   1   2   3 \n\n" ^
+                    "0  X |   |   |   \n" ^
+                    "  ---+---+---+---\n" ^
+                    "1    | O |   |   \n" ^
+                    "  ---+---+---+---\n" ^
+                    "2    |   | X |   \n" ^
+                    "  ---+---+---+---\n" ^
+                    "3    |   |   | O \n")
                    (board_string [[Full X; Empty;   Empty;  Empty];
                                  [Empty;  Full O;  Empty;  Empty];
                                  [Empty;  Empty;   Full X; Empty];
@@ -52,6 +59,10 @@ let tests = "Formatter" >:::
 
     "replaces the unicode prompt with an ASCII one" >:: ( fun () ->
       assert_equal ">>" (message_string "\xe2\x9e\xa4\xe2\x9e\xa4 " Normal)
+    );
+
+    "generates a range" >:: ( fun () ->
+      assert_equal [0; 1; 2] (range 0 3)
     );
   ]
 

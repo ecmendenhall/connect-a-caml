@@ -1,4 +1,5 @@
 open OUnit
+open Board
 open Minimax
 include Minimax
 
@@ -108,30 +109,30 @@ let tests = "Minimax" >:::
     );
 
     "scores terminal boards immediately" >:: ( fun () ->
-      assert_equal 1    (alpha_beta 1 min_int max_int X X [[Full X; Full X; Full X]]);
-      assert_equal (-1) (alpha_beta 1 min_int max_int O X [[Full O; Full O; Full O]]);
-      assert_equal 0    (alpha_beta 1 min_int max_int X X [[Full O; Full X; Full O];
+      assert_equal 1    (minimax 1 X X [[Full X; Full X; Full X]]);
+      assert_equal (-1) (minimax 1 O X [[Full O; Full O; Full O]]);
+      assert_equal 0    (minimax 1 X X [[Full O; Full X; Full O];
                                                            [Full O; Full O; Full X];
                                                            [Full X; Full O; Full X]]);
-      assert_equal 1    (alpha_beta 1 min_int max_int O X [[Full X; Full X; Full X];
+      assert_equal 1    (minimax 1 O X [[Full X; Full X; Full X];
                                                            [Full O; Full O; Empty];
                                                            [Empty;  Empty;  Empty]]);
-      assert_equal (-1) (alpha_beta 1 min_int max_int X X [[Full O; Full O; Full O];
+      assert_equal (-1) (minimax 1 X X [[Full O; Full O; Full O];
                                                            [Full X; Full X; Empty];
                                                            [Empty;  Empty;  Empty]]);
     );
 
     "assigns parents of terminal boards terminal board scores" >:: ( fun () ->
-      assert_equal 1    (alpha_beta 1 min_int max_int X X [[Full X; Full X; Empty];
+      assert_equal 1    (minimax 1 X X [[Full X; Full X; Empty];
                                                            [Full O; Full O; Empty];
                                                            [Empty;  Empty;  Empty]]);
-      assert_equal (-1) (alpha_beta 1 min_int max_int O X [[Full O; Full O; Empty];
+      assert_equal (-1) (minimax 1 O X [[Full O; Full O; Empty];
                                                            [Full X; Full X; Empty];
                                                            [Empty;  Empty;  Empty]]);
     );
 
     "assigns pending boards zero scores at depth 0" >:: ( fun () ->
-      assert_equal 0    (alpha_beta 0 min_int max_int X X [[Full X; Empty; Empty];
+      assert_equal 0    (minimax 0 X X [[Full X; Empty; Empty];
                                                            [Full O; Empty; Empty];
                                                            [Empty;  Empty; Empty]]);
     );
@@ -166,6 +167,14 @@ let tests = "Minimax" >:::
 
     "checks and returns false if board scores are not all zero" >:: ( fun () ->
       assert_equal false (all_zero [(0, 1); (0, 2); (1, 3)]);
+    );
+
+    "calculates a dynamic lookahead depth" >:: ( fun () ->
+      assert_equal 5 (board_depth (Board.empty_board 3));
+      assert_equal 3 (board_depth (Board.empty_board 4));
+      assert_equal 3 (board_depth (Board.empty_board 5));
+      assert_equal 3 (board_depth (Board.empty_board 6));
+      assert_equal 2 (board_depth (Board.empty_board 7));
     );
   ]
 

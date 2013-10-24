@@ -24,25 +24,26 @@ let tests = "Color Formatter" >:::
     );
 
     "converts a row to a string" >:: ( fun () ->
-      assert_equal ((colored_string " O " Blue) ^ "|   |   ")
-                   (row_string [Full O; Empty;  Empty ];)
+      assert_equal ("0 " ^ (colored_string " O " Blue) ^ "|   |   ")
+                   (row_string 0 [Full O; Empty;  Empty ];)
 
     );
 
     "generates a row separator" >:: ( fun () ->
-      assert_equal "\n---+---+---\n"         (row_separator 3);
-      assert_equal "\n---+---+---+---\n"     (row_separator 4);
-      assert_equal "\n---+---+---+---+---\n" (row_separator 5)
+      assert_equal "\n  ---+---+---\n"         (row_separator 3);
+      assert_equal "\n  ---+---+---+---\n"     (row_separator 4);
+      assert_equal "\n  ---+---+---+---+---\n" (row_separator 5)
     );
 
     "converts a board to a string" >:: ( fun () ->
       let o = (colored_string " O " Blue)  in
       let x = (colored_string " X " Green) in
-        assert_equal ( o ^ "|   |   \n" ^
-                      "---+---+---\n" ^
-                      x ^ "|" ^ x ^ "|" ^ o ^ "\n" ^
-                      "---+---+---\n" ^
-                      "   |   |   \n")
+        assert_equal ("   0   1   2 \n\n" ^
+                      "0 " ^ o ^ "|   |   \n" ^
+                      "  ---+---+---\n" ^
+                      "1 " ^ x ^ "|" ^ x ^ "|" ^ o ^ "\n" ^
+                      "  ---+---+---\n" ^
+                      "2    |   |   \n")
                      (board_string [[Full O; Empty;  Empty ];
                                    [Full X; Full X; Full O];
                                    [Empty;  Empty;  Empty]])
@@ -54,6 +55,16 @@ let tests = "Color Formatter" >:::
       assert_equal (colored_string "Hello world!" Cyan)  (message_string "Hello world!" Info);
       assert_equal (colored_string "Hello world!" Green) (message_string "Hello world!" (Prompt X));
       assert_equal (colored_string "Hello world!" Blue)  (message_string "Hello world!" (Prompt O))
+    );
+
+    "generates a column header" >:: ( fun () ->
+      assert_equal "   0   1   2 \n\n"         (column_header 3);
+      assert_equal "   0   1   2   3 \n\n"     (column_header 4);
+      assert_equal "   0   1   2   3   4 \n\n" (column_header 5)
+    );
+
+    "generates a range" >:: ( fun () ->
+      assert_equal [0; 1; 2] (range 0 3)
     );
 
   ]

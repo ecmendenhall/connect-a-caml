@@ -129,6 +129,18 @@ let tests = "Board" >:::
                      | Board.FullSquare -> [[Empty]]
                      | _                -> [[Full X]])
     );
+
+    "returns a rotation" >:: (fun () ->
+      let board = [[Full X; Full O; Empty;  Empty];
+                   [Full X; Full O; Empty;  Full O];
+                   [Full O; Empty;  Full X; Empty];
+                   [Empty;  Full O; Full O; Full X]] in
+      assert_equal [[Empty;  Full O;  Empty;  Full X];
+                    [Empty;  Empty;   Full X; Full O];
+                    [Full O; Full O;  Empty;  Full O];
+                    [Full X; Full X;  Full O; Empty]]
+                   (Board.rotate board)
+    );
   ]
 
 (* Test Runner *)

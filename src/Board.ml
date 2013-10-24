@@ -41,4 +41,9 @@ module Board =
     let map_row_column fn board =
       let board_size = List.length board in
         mapi (fun i sq -> (fn (row_of_index i board_size) (col_of_index i board_size) sq)) board
+
+    let rotate board =
+      let transpose = Matrix.transpose board in
+        List.rev transpose
+
   end;;

@@ -45,7 +45,7 @@ module MainFunctor (IO : IO) =
           get_strategy symbol
 
     let board_size_message () =
-      IO.show_message "Please choose a board size between 3 and 9:" Normal
+      IO.show_message "Please choose a board size between 3 and 7:" Normal
 
     let rec board_size_prompt () =
       let raw_input = IO.get_input () in
@@ -56,7 +56,7 @@ module MainFunctor (IO : IO) =
 
     let too_small size = size <= 2
 
-    let too_big  size = size >= 10
+    let too_big size = size >= 8
 
     let validate_size size =
       if too_big size then
