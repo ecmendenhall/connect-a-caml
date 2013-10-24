@@ -1,7 +1,9 @@
 open OUnit
-open Types
-include Types
+
 open InputFunctor
+open Types
+
+include Types
 
 module MockPervasives =
   struct

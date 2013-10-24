@@ -1,8 +1,10 @@
 open OUnit
-open HumanFunctor
-open XToken
+
 open Board
+open HumanFunctor
 open Types
+open XToken
+
 include Types
 
 let input = ref ["0,0"]

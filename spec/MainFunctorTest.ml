@@ -1,8 +1,10 @@
 open OUnit
-open Types
-include Types
+
 open MainFunctor
 open StrategyInterface
+open Types
+
+include Types
 
 let input = ref ["m"; "m"; "m"; "r"; "3"]
 let last_board = ref [[Empty]]

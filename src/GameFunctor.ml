@@ -1,7 +1,7 @@
+open Engine
 open IOInterface
 open IOInterface
 open PlayerInterface
-open Engine
 
 module GameFunctor (IO : IO) (PlayerX : PLAYER) (PlayerO : PLAYER) =
   struct

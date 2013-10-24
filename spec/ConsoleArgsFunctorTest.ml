@@ -1,13 +1,15 @@
 open OUnit
+
+open CamelThemedEmojiFormatter
 open ConsoleArgsFunctor
-open Types
-include Types
-open FormatterInterface
-open Formatter
 open ColorFormatter
 open EmojiFormatter
+open Formatter
+open FormatterInterface
 open SpookyScaryHalloweenFormatter
-open CamelThemedEmojiFormatter
+open Types
+
+include Types
 
 let arg = ref "color"
 

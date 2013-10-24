@@ -1,4 +1,5 @@
 open OUnit
+
 open ColorFormatter
 include ColorFormatter
 

@@ -1,5 +1,5 @@
-open Util
 open Str
+open Util
 
 module CamelThemedEmojiFormatter =
   struct

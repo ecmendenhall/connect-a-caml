@@ -1,9 +1,11 @@
 open OUnit
-open Types
-include Types
-open OutputFunctor
-open Formatter
+
 open Board
+open Formatter
+open OutputFunctor
+open Types
+
+include Types
 
 let last_printed = ref ""
 

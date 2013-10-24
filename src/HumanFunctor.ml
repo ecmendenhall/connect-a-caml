@@ -1,5 +1,5 @@
-open IOInterface
 open Board
+open IOInterface
 open Str
 open String
 

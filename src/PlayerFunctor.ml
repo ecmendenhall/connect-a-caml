@@ -1,5 +1,5 @@
-open StrategyInterface
 open GameTokenInterface
+open StrategyInterface
 
 module PlayerFunctor (Strategy : STRATEGY) (GameToken : GAMETOKEN) =
   struct

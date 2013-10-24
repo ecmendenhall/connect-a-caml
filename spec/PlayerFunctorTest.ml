@@ -1,11 +1,13 @@
 open OUnit
-open Types
-include Types
-open PlayerFunctor
-open Minimax
-open XToken
-open OToken
+
 open Board
+open Minimax
+open PlayerFunctor
+open OToken
+open Types
+open XToken
+
+include Types
 
 module MockStrategy =
   struct

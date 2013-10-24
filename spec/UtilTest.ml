@@ -1,7 +1,9 @@
 open OUnit
+
 open Types
-include Types
 open Util
+
+include Types
 include Util
 
 let tests = "Util" >:::

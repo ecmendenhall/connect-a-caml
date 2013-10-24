@@ -1,7 +1,9 @@
 open OUnit
-open Types
-include Types
+
 open Matrix
+open Types
+
+include Types
 include Matrix
 
 let tests = "Util" >:::

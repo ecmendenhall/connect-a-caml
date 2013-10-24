@@ -1,4 +1,5 @@
 open OUnit
+
 open Board
 open Types
 include Types

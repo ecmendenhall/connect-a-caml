@@ -1,6 +1,8 @@
 open OUnit
+
 open OToken
 open Types
+
 include Types
 
 let tests = "O Token wrapper" >:::

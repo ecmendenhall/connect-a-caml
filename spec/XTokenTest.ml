@@ -1,6 +1,8 @@
 open OUnit
-open XToken
+
 open Types
+open XToken
+
 include Types
 
 let tests = "X Token wrapper" >:::

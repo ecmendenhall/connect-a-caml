@@ -1,10 +1,10 @@
 open ArgParserInterface
-open FormatterInterface
-open Formatter
+open CamelThemedEmojiFormatter
 open ColorFormatter
 open EmojiFormatter
+open Formatter
+open FormatterInterface
 open SpookyScaryHalloweenFormatter
-open CamelThemedEmojiFormatter
 
 module ConsoleArgsFunctor (ArgParser : ARGPARSER) =
   struct

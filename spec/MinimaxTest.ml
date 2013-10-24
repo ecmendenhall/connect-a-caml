@@ -1,6 +1,8 @@
 open OUnit
+
 open Board
 open Minimax
+
 include Minimax
 
 let tests = "Minimax" >:::

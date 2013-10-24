@@ -1,17 +1,17 @@
-open IOInterface
+open Board
 open GameFunctor
-open PlayerFunctor
-open Minimax
-open XToken
-open OToken
-open Board
-open Types
-include Types
-open Board
-open String
-open StrategyInterface
-open RandomMove
 open HumanFunctor
+open IOInterface
+open Minimax
+open OToken
+open PlayerFunctor
+open RandomMove
+open StrategyInterface
+open String
+open Types
+open XToken
+
+include Types
 
 module MainFunctor (IO : IO) =
   struct

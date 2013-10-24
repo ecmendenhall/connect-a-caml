@@ -1,8 +1,9 @@
 open OUnit
+
 open ConsoleIOFunctor
-open OutputFunctor
 open InputFunctor
 open Formatter
+open OutputFunctor
 
 let last_printed = ref ""
 

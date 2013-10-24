@@ -1,8 +1,10 @@
 open OUnit
+
+open Board
 open GameFunctor
 open Types
+
 include Types
-open Board
 
 let input = ref "0,0"
 let last_board = ref [[Empty]]
