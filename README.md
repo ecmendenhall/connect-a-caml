@@ -108,7 +108,7 @@ Try them all and find your favorite!
 ## A Tour of OCaml
 OCaml was invented in France and named after a stubborn land mammal, so it has some peculiarities.
 Below are a few things I learned. Or, if you'd prefer an interactive tour,
-check out [Try Ocaml](http://try.ocamlpro.com/)
+check out [Try Ocaml](http://try.ocamlpro.com/).
 
 ### Types
 OCaml is typed, but you won't see many type declarations. The compiler infers types from values and
