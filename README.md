@@ -8,6 +8,7 @@ The happy path:
 
 ```
 $ git clone git@github.com:ecmendenhall/connect-a-caml.git
+$ cd connect-a-caml
 $ rake
 ```
 
@@ -88,7 +89,8 @@ Try them all and find your favorite!
 
 ## A Tour of OCaml
 OCaml was invented in France and named after a stubborn land mammal, so it has some peculiarities.
-Here are a few things I learned.
+Below are a few things I learned. Or, if you'd prefer an interactive tour,
+check out [Try Ocaml](http://try.ocamlpro.com/)
 
 ### Types
 OCaml is typed, but you won't see many type declarations. The compiler infers types from values and
@@ -99,7 +101,7 @@ type gamepiece = X | O
 ```
 
 This binds a type name (`gamepiece`) to a type constructor (`X` or `O`).
-Types constructors can also take arguments:
+Type constructors can also take arguments:
 
 ```
 type square = Empty | Full of gamepiece
@@ -174,7 +176,7 @@ Here's a function that takes a winning row and maps it to a
 `Pending` or `Win` game state. Each pattern is tried in succession
 (much like Lisp `cond` clauses), and the function returns the value
 of the first guard that matches. Here, it's matching against the first
-element in a winning row, which will
+element in a winning row.
 
 ```
 let row_state row =
@@ -191,7 +193,7 @@ contain an `Empty` square. The OCaml compiler flags incomplete matches with a wa
 so it's included here only to placate it.
 
 Even though pattern matching is totally rad, there are times when it's a _faux pas_ (French
-intended). Thus this:
+intended)&mdash;mostly when it can be replaced with an `if` statement. Thus this:
 
 ```
 let player_message symbol =
