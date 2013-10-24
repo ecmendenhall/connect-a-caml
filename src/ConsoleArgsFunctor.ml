@@ -9,7 +9,7 @@ open CamelThemedEmojiFormatter
 module ConsoleArgsFunctor (ArgParser : ARGPARSER) =
   struct
 
-    let formatter = ref "camel"
+    let formatter = ref "color"
 
     let speclist = [
       ("-f",
@@ -22,9 +22,9 @@ module ConsoleArgsFunctor (ArgParser : ARGPARSER) =
       let _ = ArgParser.parse speclist (fun arg -> ()) "Usage:" in
         match String.lowercase !formatter with
           | "normal" -> (module Formatter : FORMATTER)
-          | "color"  -> (module ColorFormatter : FORMATTER)
           | "emoji"  -> (module EmojiFormatter : FORMATTER)
           | "spooky" -> (module SpookyScaryHalloweenFormatter : FORMATTER)
-          | _        -> (module CamelThemedEmojiFormatter : FORMATTER)
+          | "camel"  -> (module CamelThemedEmojiFormatter : FORMATTER)
+          | _        -> (module ColorFormatter : FORMATTER)
 
   end;;

@@ -50,6 +50,9 @@ let tests = "Formatter" >:::
       assert_equal "Hello world!" (message_string "Hello world!" Error)
     );
 
+    "replaces the unicode prompt with an ASCII one" >:: ( fun () ->
+      assert_equal ">>" (message_string "\xe2\x9e\xa4\xe2\x9e\xa4 " Normal)
+    );
   ]
 
 (* Test Runner *)

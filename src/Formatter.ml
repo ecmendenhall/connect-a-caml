@@ -16,7 +16,9 @@ module Formatter =
       let dashes = Util.make_list size "---" in
         "\n" ^ (String.concat "+" dashes) ^ "\n"
 
-    let message_string message _ = message
+    let message_string message _ = match message with
+      | "\xe2\x9e\xa4\xe2\x9e\xa4 " -> ">>"
+      | _ -> message
 
     let board_string board =
       let separator = row_separator (List.length board) in

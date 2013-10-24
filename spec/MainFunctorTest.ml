@@ -4,7 +4,7 @@ include Types
 open MainFunctor
 open StrategyInterface
 
-let input = ref ["m"]
+let input = ref ["m"; "m"; "m"; "r"; "3"]
 let last_board = ref [[Empty]]
 let last_message = ref ""
 
@@ -32,6 +32,7 @@ let tests = "Main" >:::
     );
 
     "Matches strings to player strategies" >:: ( fun () ->
+      input := ["m"];
       let (module Strategy : STRATEGY) = (Main.get_strategy X) in
       assert_equal [[Full X]] (Strategy.next_move X [[Empty]]);
     );

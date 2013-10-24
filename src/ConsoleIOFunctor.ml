@@ -8,7 +8,7 @@ module ConsoleIOFunctor (Input : INPUT) (Output : OUTPUT) =
       Output.clear_print ""
 
     let get_input () =
-      Output.print "\xe2\x9e\xa4\xe2\x9e\xa4 ";
+      Output.print ">> ";
       Input.read_line ()
 
     let show_board board =

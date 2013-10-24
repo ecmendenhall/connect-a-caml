@@ -72,10 +72,10 @@ let tests = "ConsoleArgs Functor" >:::
       assert_equal " \xf0\x9f\x90\xab " (Formatter.square_string (Full X))
     );
 
-    "gets a camel-themed formatter by default" >:: ( fun () ->
+    "gets a colored formatter by default" >:: ( fun () ->
       arg := "banana";
       let (module Formatter : FORMATTER) = ConsoleArgs.get_formatter () in
-      assert_equal " \xf0\x9f\x90\xab " (Formatter.square_string (Full X))
+      assert_equal "\x1b[1;32m X \x1b[0m" (Formatter.square_string (Full X))
     );
   ]
 

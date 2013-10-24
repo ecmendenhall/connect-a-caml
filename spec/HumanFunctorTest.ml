@@ -38,6 +38,7 @@ let tests = "Human" >:::
     );
 
     "prompts user for a move" >:: ( fun () ->
+      input := ["0, 0"];
       assert_equal [0; 0] (Human.get_move X);
       assert_equal "Please enter your move as a row, column coordinate." !last_message
     );

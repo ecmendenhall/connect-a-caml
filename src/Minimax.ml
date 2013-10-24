@@ -44,7 +44,7 @@ module Minimax =
        else
         min_score (List.map (alpha_beta (depth - 1) alpha beta next_turn player) next_boards)
 
-   let score_board player board = (alpha_beta 2 1 1 (other_turn player) player board), board
+   let score_board player board = (alpha_beta 6 1 1 (other_turn player) player board), board
 
    let all_zero boards =
      List.fold_left (&&) true (List.map (fun b -> fst b = 0) boards)

@@ -23,7 +23,7 @@ let tests = "Console I/O" >:::
   [
     "console IO prints a prompt" >:: ( fun () ->
       let _ = (ConsoleIO.get_input ()) in
-      assert_equal !last_printed "\xe2]x9e\xa4\xe2\x9e\xa4 "
+      assert_equal !last_printed ">> "
     );
 
     "console IO prints a prompt and gets input" >:: ( fun () ->
