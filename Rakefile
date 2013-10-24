@@ -67,7 +67,7 @@ task :spec => [:deps] do
   info "Building Spec binary."
   puts
   verbose(false) do
-      sh "ocamlbuild Spec.native -pkg ounit -pkg Str -Is src,spec -pkg Str -use-ocamlfind"
+      sh "ocamlbuild Spec.native -pkg ounit -pkg Str -Is src,spec -use-ocamlfind"
       puts "It worked! Run ./Spec.native to run the tests."
       puts
       info "Running tests..."

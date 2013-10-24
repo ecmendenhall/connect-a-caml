@@ -1,10 +1,94 @@
-To build and run the test suite:
+# Connect-a-Caml
+
+## OS X installation
+This repository contains a Rake task that automates building the game and running tests. It requires
+homebrew to find and install OCaml.
+
+The happy path:
+
 ```
-ocamlbuild <File>.native <File>Test.native -pkg oUnit -use-ocamlfind && ./FileTest.native
+$ git clone git@github.com:ecmendenhall/connect-a-caml.git
+$ rake
 ```
 
+This will install OCaml, run specs, build a native binary, and start the game.
+
+Other tasks:
+- `rake deps` to install the OCaml dependencies
+- `rake spec` to run unit tests
+- `rake build` to build the game
+- `rake clean` to remove build artifacts
+
+To run the game once built:
+
+```
+$ ./TTT.native
+```
+
+If the rake task fails on the first run, Ocaml's package management configuration
+may not have been sourced in your current terminal. Try opening a new one and
+trying again before proceeding.
+
+The unhappy path:
+
+Install OCaml:
+
+```
+$ brew install ocaml
+```
+
+Install opam, the OCaml package manager:
+
+```
+$ brew install opam
+```
+
+Set up opam and source its configuration:
+```
+$ opam init
+$ eval `opam config env`
+```
+
+Install the oUnit test library:
+```
+$ opam install ounit
+```
+
+Build specs (from the project directory):
+```
+$ ocamlbuild Spec.native -pkg ounit -pkg Str -Is src,spec -use-ocamlfind
+```
+
+Build the game (from the project directory):
+```
+$ ocamlbuild TTT.native -Is src -pkg -Str -use-ocamlfind
+```
+
+## The Game
+Is Tic-Tac-Toe. Once it's built, just run:
+
+```
+$ ./TTT.native
+```
+
+The default configuration uses ANSI terminal colors, which should work in Terminal
+and iTerm. If they don't work or you'd prefer something simpler, there are several
+other views available from the command line by passing a flag argument:
+
+```
+$ ./TTT.native -f <format>
+```
+Options are:
+- `-f normal` for a black-and-white, all-ASCII game.
+- `-f emoji` for a game using basic emoji characters.
+- `-f spooky` for a spooky, scary Halloween themed game.
+- `-f camel` for a camel-themed game. (This would have been the default if the camels didn't look so similar).
+
+Try them all and find your favorite!
+
 ## A Tour of OCaml
-OCaml was invented in France and named after a stubborn land mammal.
+OCaml was invented in France and named after a stubborn land mammal, so it has some peculiarities.
+Here are a few things I learned.
 
 ### Types
 OCaml is typed, but you won't see many type declarations. The compiler infers types from values and
@@ -32,7 +116,7 @@ lists of squares, like `[[Empty; Empty; Full X;]]`.
 Lists are semicolon-separated: `[1; 2; 3; 4; 5]`.
 
 ### Functions
-The `let <name> =` construct binds a name to a value or funciton. If the thing after `let` is followed by `=`,
+The `let <name> =` construct binds a name to a value or function. If the thing after `let` is followed by `=`,
 it's a value. If the thing after `let` is followed by more things, it's a function and those things are its
 arguments.
 
@@ -53,7 +137,8 @@ Functions can also be declared anonymously:
 The body of a function contains both an implicit do (statements terminated with a semicolon are
 evaluated for side effects) and an implicit return (the last thing in the body is the return value).
 
-Ocaml functions are curried, so feeding a function fewer arguments than it expects returns a partial.
+Ocaml functions are curried, so feeding a function fewer arguments than it expects returns a partial. You'll
+see this often in combination with `List.map`.
 
 ### Interfaces
 Like C, interfaces are specified in separate files from implementations. Interface files
@@ -77,7 +162,7 @@ takes no args but returns a string, and `show_board` and `show_message` both tak
 them without returning values.
 
 An interesting thing: Module types are inferred based on the interface files OCaml finds on the
-project build path. Any module that provides these four functions will be recognized as type `IO`,
+project build path. Any module that provides the four functions above will be recognized as type `IO`,
 and substitutable for any other.
 
 This example is a pure interface (there is no corresponding 'IO.ml' file), but every OCaml file is
@@ -165,7 +250,7 @@ let rec contains_O row = match row with
 ```
 
 ### Functors
-Seriously, "functors?" That's what I thought, too. Functors are functions that take modules as
+Functors are functions that take modules as
 parameters, plug those modules into a template, and return a new module _parameterized_ by those modules.
 Which is all just a confusing way to say "functors do dependency injection."
 
@@ -219,7 +304,12 @@ type to another.
 
 ### Parentheses
 Are used to control order of evaluation. Unfortunately, there is nothing like Haskell's `$` operator,
-and anyways, it would be `€`.
+and it would probably be `€` anyways.
 
 ### Other symbols
 The `^` operator concatenates strings. The `@` operator concatenates collections.
+
+### More resources
+- [Caml programming guidelines](http://caml.inria.fr/resources/doc/guides/guidelines.en.html)
+- [OCaml style guide](http://www.cs.cornell.edu/courses/cs3110/2011sp/handouts/style.htm)
+- [Official language documentation](http://caml.inria.fr/pub/docs/manual-ocaml/)
