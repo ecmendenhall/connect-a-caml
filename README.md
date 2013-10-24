@@ -26,9 +26,25 @@ To run the game once built:
 $ ./TTT.native
 ```
 
-If the rake task fails on the first run, Ocaml's package management configuration
+_NB:_ If the rake task fails on the first run, Ocaml's package management configuration
 may not have been sourced in your current terminal. Try opening a new one and
-trying again before proceeding.
+trying again before proceeding. An error like the one below means the Opam environment isn't sourced.
+Try <code>eval `opam config env`</code> in the terminal to load it.
+
+```
++ ocamlfind ocamldep -package Str -package ounit -modules Spec.ml > Spec.ml.depends
+/bin/sh: ocamlfind: command not found
+Command exited with code 127.
+Compilation unsuccessful after building 1 target (0 cached) in 00:00:00.
+rake aborted!
+Command failed with status (10): [ocamlbuild Spec.native -pkg ounit -pkg Str...]
+/Users/mike/projects/ttt/connor/Rakefile:70:in `block (2 levels) in <top (required)>'
+/Users/mike/projects/ttt/connor/Rakefile:69:in `block in <top (required)>'
+/Users/mike/.rvm/gems/ruby-1.9.3-p448/bin/ruby_noexec_wrapper:14:in `eval'
+/Users/mike/.rvm/gems/ruby-1.9.3-p448/bin/ruby_noexec_wrapper:14:in `<main>'
+Tasks: TOP => default => build => spec
+(See full trace by running task with --trace)
+```
 
 The unhappy path:
 
@@ -55,6 +71,8 @@ Install the oUnit test library:
 $ opam install ounit
 ```
 
+Once you've installed these requirements by hand, try Rake again. If it fails:
+
 Build specs (from the project directory):
 ```
 $ ocamlbuild Spec.native -pkg ounit -pkg Str -Is src,spec -use-ocamlfind
@@ -62,7 +80,7 @@ $ ocamlbuild Spec.native -pkg ounit -pkg Str -Is src,spec -use-ocamlfind
 
 Build the game (from the project directory):
 ```
-$ ocamlbuild TTT.native -Is src -pkg -Str -use-ocamlfind
+$ ocamlbuild TTT.native -Is src -pkg Str -use-ocamlfind
 ```
 
 ## The Game
