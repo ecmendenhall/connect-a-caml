@@ -26,7 +26,7 @@ To run the game once built:
 $ ./TTT.native
 ```
 
-_NB:_ If the rake task fails on the first run, Ocaml's package management configuration
+__NB:__ If the rake task fails on the first run, Ocaml's package management configuration
 may not have been sourced in your current terminal. Try opening a new one and
 trying again before proceeding. An error like the one below means the Opam environment isn't sourced.
 Try <code>eval `opam config env`</code> in the terminal to load it.
